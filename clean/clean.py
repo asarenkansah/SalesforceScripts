@@ -1,4 +1,3 @@
-
 # Notes from Reading the Data
 #     col = list(data.columns.values)
 #     concat = data['First Name'].map(str) + data['Last Name'].map(str)
@@ -13,14 +12,16 @@ import pandas as pd
 from pathlib import *
 
 def SAP():
-    file = Path("SAP.xlsx")
+    file = Path("SAP Applicant File.xlsx")
     if file.exists ():
-        data = pd.read_excel("SAP.xlsx")
+        data = pd.read_excel("SAP Applicant File.xlsx")
         data['Concat ID'] = data['VORNA'] + data['NACHN'] + data['FMTSTREET'].str[:10]
+        data['Concat ID'] = data['Concat ID'].str.lower()
         SAP_data = data[['Concat ID'] + ['STUDENTSHORT'] + ['SMTP_ADDR'] + ['STUDENTSHORT'] + ['SMTP_ADDR1'] + ['STUDENTSHORT']]
 
-        print(SAP_data.head())
-#        SAP_data.to_csv('modified_SAP.csv')
+#        print(SAP_data.head())
+        SAP_data.to_csv('modified_SAP.csv')
+        print('SAP Applicant File Complete')
 
     else:
         print ("SAP Applicant File not exist")
@@ -30,11 +31,12 @@ def eab():
     if file.exists ():
         data = pd.read_csv("eab.csv", encoding = "ISO-8859-1")
         data['Concat ID'] = data['First Name'] + data['Last Name'] + data['Mailing Street'].str[:10]
+        data['Concat ID'] = data['Concat ID'].str.lower()
         eab_data = data[['Concat ID'] + ['Contact ID'] + ['Email'] + ['Contact ID']]
 
-        print(eab_data.head())
-#        eab_data.to_csv('modified_eab.csv')
-
+#        print(eab_data.head())
+        eab_data.to_csv('modified_eab.csv')
+        print('EAB Marketing Pop Complete')
     else:
         print ("EAB Marketing Pop File not exist")
 
@@ -43,23 +45,28 @@ def marketing():
     if file.exists ():
         data = pd.read_csv("marketing.csv", encoding = "ISO-8859-1")
         data['Concat ID'] = data['First Name'] + data['Last Name'] + data['Mailing Street'].str[:10]
+        data['Concat ID'] = data['Concat ID'].str.lower()
         marketing_data = data[['Concat ID'] + ['Contact ID'] + ['Email'] + ['Contact ID']]
 
-        print(marketing_data.head())
-#        tranfer_data.to_csv('modified_marketing.csv')
+#        print(marketing_data.head())
+        marketing_data.to_csv('modified_marketing.csv')
+        print('Marketing Pop Complete')
+        
 
     else:
         print ("Marketing Pop File not exist")
 
 def prospect():
-    file = Path("prospect.csv")
+    file = Path("prospects.csv")
     if file.exists ():
-        data = pd.read_csv("prospect.csv", encoding = "ISO-8859-1")
+        data = pd.read_csv("prospects.csv", encoding = "ISO-8859-1")
         data['Concat ID'] = data['Contact: First Name'] + data['Contact: Last Name'] + data['Contact: Mailing Address Line 1'].str[:10]
+        data['Concat ID'] = data['Concat ID'].str.lower()        
         prospect_data = data[ ['Concat ID'] + ['Contact: Contact ID'] + ['Contact: Email'] + ['Contact: Contact ID']]
 
-        print(prospect_data.head())
-#        prospect_data.to_csv('modified_prospect.csv')
+#        print(prospect_data.head())
+        prospect_data.to_csv('modified_prospect.csv')
+        print('20-21 Prospects Complete')
 
     else:
         print ("Prospect Pop File not exist")
@@ -69,10 +76,12 @@ def transfer():
     if file.exists ():
         data = pd.read_csv("transfer.csv", encoding = "ISO-8859-1")
         data['Concat ID'] = data['First Name'] + data['Last Name'] + data['Mailing Street'].str[:10]
+        data['Concat ID'] = data['Concat ID'].str.lower()
         transfer_data = data[['Concat ID'] + ['Contact ID'] + ['Email'] + ['Contact ID']]
 
-        print(transfer_data.head())
-#        tranfer_data.to_csv('modified_transfer.csv')
+#        print(transfer_data.head())
+        transfer_data.to_csv('modified_transfer.csv')
+        print('Transfer Pop Complete')
 
     else:
         print ("Transfer Pop File not exist")
@@ -85,6 +94,5 @@ def main():
     marketing()
     eab()
     SAP()
-
 
 main()

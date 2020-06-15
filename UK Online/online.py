@@ -5,7 +5,7 @@ def OPI_data(data):
     data['Concat ID'] = data['First Name'] + data['Last Name'] + data['Address Line 1'].str[:10]
     data = data[['Entry Term'] + ['Submitted Date'] + ['Admission Decision'] + ['Concat ID']]
     data['Admission Decision'] = data['Admission Decision'].fillna('App Started')
-    data = data.rename(columns={'Entry Term' : 'AY_Entry_Term' , 'Submitted Date' : 'Application Date' , 'Admission Decision' : 'Application Status'})
+    data = data.rename(columns={'Entry Term' : 'AY_Entry_Term' , 'Submitted Date' : 'Application Date' , 'Admission Decision' : 'Application Status', 'Address Line 2' : 'Other Street', 'Concat ID':'Concat Short'})
     return data
 
 
@@ -26,11 +26,11 @@ def data_clean(load_data):
     return load_data
 
 def imports():
-    file = Path("Online_programs_for_SF_05_27_2020_12.00.22_PM.csv")
+    file = Path("Online_programs_for_SF_06_11_2020_12.00.22_PM2.csv")
     if file.exists ():
-        data = pd.read_csv("Online_programs_for_SF_05_27_2020_12.00.22_PM.csv", encoding = "ISO-8859-1")
+        data = pd.read_csv("Online_programs_for_SF_06_11_2020_12.00.22_PM2.csv", encoding = "ISO-8859-1")
     else:
-        print("YouVisit file not found")
+        print("UK Online file not found")
 
     return data
 
@@ -39,10 +39,10 @@ def main():
     clean_contact_data = data_clean(online_data)
     contact_data_final = rename(clean_contact_data)
     OPI_data_final = OPI_data(online_data)
-    print(contact_data_final.head())
-    print(OPI_data_final.head())
+#    print(contact_data_final.head())
+#    print(OPI_data_final.head())
 
-#    OPI_final_data.to_csv('UKOnline_OPI_final.csv')
-#    OPI_data_final.to_csv('UKOnline_Contact_final.csv')
+    OPI_data_final.to_csv('UKOnline_OPI_final.csv')
+    contact_data_final.to_csv('UKOnline_Contact_final.csv')
 
 main()

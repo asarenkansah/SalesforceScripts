@@ -49,9 +49,9 @@ def data_clean(load_data):
     return load_data
 
 def imports():
-    file = Path("200519_RaiseMe_original.xlsx")
+    file = Path("200610_RaiseMe_original.csv")
     if file.exists ():
-        data = pd.read_excel("200519_RaiseMe_original.xlsx")
+        data = pd.read_csv("200610_RaiseMe_original.csv")
     else:
         print("RaiseMe file not found")
 

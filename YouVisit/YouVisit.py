@@ -36,15 +36,15 @@ def data_clean(load_data):
     load_data['Major / Program'] = load_data['Major / Program'].str.lower()
 
     for index, row in load_data.iterrows():
-        if(row['Visitor Type'] == "Alumni" or row['Visitor Type'] == "Parent of High School Student" or row['Visitor Type'] == "College Graduate" or row['Visitor Type'] == "Faculty / Staff" or row['Visitor Type'] == "Faculty / Staff" ):
+        if(row['Visitor Type'] == "Alumni" or row['Visitor Type'] == "Parent of High School Student" or row['Visitor Type'] == "College Graduate" or row['Visitor Type'] == "Faculty / Staff" or row['Visitor Type'] == "Faculty / Staff"  or row['Visitor Type'] == 'Parent of Transfer Student' or row['Visitor Type'] == 'Parent of High School Graduate' or row['Visitor Type'] == 'School Counselor' or row['Visitor Type'] == 'Parent of College Graduate'):
             load_data = load_data.drop([index])
 
     return load_data
 
 def imports():
-    file = Path("200511_YouVisit_original.csv")
+    file = Path("200608_YouVisit_original.csv")
     if file.exists ():
-        data = pd.read_csv("200511_YouVisit_original.csv", encoding = "ISO-8859-1")
+        data = pd.read_csv("200608_YouVisit_original.csv", encoding = "ISO-8859-1")
     else:
         print("YouVisit file not found")
 
