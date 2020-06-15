@@ -34,9 +34,6 @@ def data_clean(load_data):
     load_data['STUDENT_TYPE__C'] = ""
     load_data['Gender'] = load_data['Gender'].map({'M' : 'Male', 'F': 'Female'})
 
-    today = date.today()
-    full_date = str(today.strftime("%d/%m/%Y"))
-
     for index, row in load_data.iterrows():
         if(row['Concat ID'] == ""):
             load_data['Concat ID'] = load_data['First Name'] + load_data['Last Name']
@@ -44,14 +41,13 @@ def data_clean(load_data):
         load_data.at[index,"TERM__C"] = "Fall"
         load_data.at[index,"STUDENT_STATUS__C"] = "Inquiry"
         load_data.at[index,"STUDENT_TYPE__C"] = "Freshman"
-        load_data.at[index, "LOAD_DATE__C"] = full_date
 
     return load_data
 
 def imports():
-    file = Path("200519_RaiseMe_original.xlsx")
+    file = Path("200519_RaiseMe_original.csv")
     if file.exists ():
-        data = pd.read_excel("200519_RaiseMe_original.xlsx")
+        data = pd.read_csv("200519_RaiseMe_original.csv")
     else:
         print("RaiseMe file not found")
 
