@@ -38,6 +38,8 @@ def data_clean(load_data):
     for index, row in load_data.iterrows():
         if(row['Visitor Type'] == "Alumni" or row['Visitor Type'] == "Parent of High School Student" or row['Visitor Type'] == "College Graduate" or row['Visitor Type'] == "Faculty / Staff" or row['Visitor Type'] == "Faculty / Staff" ):
             load_data = load_data.drop([index])
+        if(load_data['Contact ID'] == ''):
+            load_data.at[index,"Contact ID"] = load_data['First Name'] + load_data['Last Name']
 
     return load_data
 
