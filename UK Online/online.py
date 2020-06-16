@@ -8,7 +8,6 @@ def OPI_data(data):
     data = data.rename(columns={'Entry Term' : 'AY_Entry_Term' , 'Submitted Date' : 'Application Date' , 'Admission Decision' : 'Application Status', 'Address Line 2' : 'Other Street', 'Concat ID':'Concat Short'})
     return data
 
-
 def rename(data):
     data = data.rename(columns={'E-mail': "EMAIL", 'Address Line 1' : "MAILING STREET", 'City' : 'MAILING CITY', 'State/Province': 'MAILINGSTATE', 'Zip' : 'MAILINGPOSTALCODE', 'DOB': 'BIRTHDATE'})
     return data
@@ -22,6 +21,10 @@ def data_clean(load_data):
     load_data['Address Line 1'] = load_data['Address Line 1'].str.title()
     load_data['City'] = load_data['City'].str.title()
     load_data['Gender'] = load_data['Gender'].map({'1': 'Male', '2': 'Female'})
+
+    for index, row in load_data.iterrows():
+        if(load_data['Contact ID'] == ''):
+            load_data.at[index,"Contact ID"] = load_data['First Name'] + load_data['Last Name']
 
     return load_data
 

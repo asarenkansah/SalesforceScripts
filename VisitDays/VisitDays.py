@@ -32,8 +32,6 @@ def data_clean(load_data):
     for index, row in load_data.iterrows():
         if(row['Visitor Id'] == "Alumni" or row['Visitor Id'] == "Parent of High School Student" or row['Visitor Id'] == "College Graduate" or row['Visitor Id'] == "Faculty / Staff" or row['Visitor Id'] == "Faculty / Staff" ):
             load_data = load_data.drop([index])
-        if(row['Concat ID'] == ""):
-            load_data['Concat ID'] = load_data['First Name'] + load_data['Last Name']
         load_data.at[index,"SOURCE__C"] = "VisitDays"
         load_data.at[index,"TERM__C"] = "Fall"
         load_data.at[index,"STUDENT_STATUS__C"] = "Inquiry"

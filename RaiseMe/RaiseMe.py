@@ -45,10 +45,16 @@ def data_clean(load_data):
     return load_data
 
 def imports():
+<<<<<<< HEAD
     file = Path("200610_RaiseMe_original.csv")
     if file.exists ():
         data = pd.read_csv("200610_RaiseMe_original.csv")
 
+=======
+    file = Path("200519_RaiseMe_original.csv")
+    if file.exists ():
+        data = pd.read_csv("200519_RaiseMe_original.csv")
+>>>>>>> dcbe93cf78d4408e318012fad59d58ccd51c4fd3
     else:
         print("RaiseMe file not found")
 
