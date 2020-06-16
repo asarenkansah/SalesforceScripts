@@ -72,7 +72,7 @@ def prospect():
         print("Working on Prospect Pop")
         data = pd.read_csv("prospect.csv", encoding = "ISO-8859-1")
         data['Concat ID'] = data['Contact: First Name'] + data['Contact: Last Name'] + data['Contact: Mailing Address Line 1'].str[:10]  
-        data.loc[load_data["Concat ID"].isnull(),'Concat ID'] = data['Contact: First Name'] + data['Contact: Last Name']
+        data.loc[data["Concat ID"].isnull(),'Concat ID'] = data['Contact: First Name'] + data['Contact: Last Name']
 
         data['Concat ID'] = data['Concat ID'].str.lower()
             
