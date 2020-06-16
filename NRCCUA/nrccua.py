@@ -3,16 +3,17 @@ from pathlib import *
 from datetime import date
 
 def data_reorder(final_data):
-    final_data = final_data.reindex(columns=['Purchase ID', 'SOURCE__C', 'LOAD_DATE__C', 'FIRST_NAME__C', 'LAST_NAME__C', 'EMAIL__C', 'BIRTHDATE__C', 'GENDER__C', 'CONCATID__C', 'ADDRESS_LINE_1__C', 'ADDRESS_LINE_2__C', 'CITY__C', 'STATE__C', 'ZIP_CODE__C', 'COUNTRY__C', 'HS_GRADUATION_YEAR__C', 'HS_CEEB_CODE__C', 'YEAR__C', 'TERM__C', 'STUDENT_STATUS__C', 'STUDENT_TYPE__C', 'MAJOR_OF_INTEREST__C', 'SECONDARY_MAJOR_OF_INTEREST__C', 'AMERICAN_INDIAN_ALASKAN_NATIVE__C', 'ASIAN__C', 'BLACK_AFRICAN_AMERICAN__C', 'WHITE_CAUCASIAN__C', 'Hispanic/Latino', 'Race/Ethnicity Unknown'])
+    final_data = final_data.reindex(columns=['Purchase ID', 'SOURCE__C', 'LOAD_DATE__C', 'FIRST_NAME__C', 'LAST_NAME__C', 'EMAIL__C', 'BIRTHDATE__C', 'GENDER__C', 'MOBILE__C', 'CONCATID__C', 'ADDRESS_LINE_1__C', 'ADDRESS_LINE_2__C', 'CITY__C', 'STATE__C', 'ZIP_CODE__C', 'COUNTRY__C', 'HS_GRADUATION_YEAR__C', 'HS_CEEB_CODE__C', 'YEAR__C', 'TERM__C', 'STUDENT_STATUS__C', 'STUDENT_TYPE__C', 'MAJOR_OF_INTEREST__C', 'SECONDARY_MAJOR_OF_INTEREST__C', 'AMERICAN_INDIAN_ALASKAN_NATIVE__C', 'ASIAN__C', 'BLACK_AFRICAN_AMERICAN__C', 'WHITE_CAUCASIAN__C', 'Hispanic/Latino', 'Race/Ethnicity Unknown'])
     return final_data
 
 def data_rename(final_data):
-    final_data = final_data.rename(columns={'Sequence':'Purchase ID', 'FirstName':'FIRST_NAME__C', 'LastName':'LAST_NAME__C', 'Email':'EMAIL__C', 'BirthDate':'BIRTHDATE__C', 'Gender':'GENDER__C', 'Contact ID':'CONCATID__C', 'Address':'ADDRESS_LINE_1__C', 'Address2':'ADDRESS_LINE_2__C', 'City':'CITY__C','State':'STATE__C','Zipcode':'ZIP_CODE__C','GraduationYear':'HS_GRADUATION_YEAR__C','Ceeb':'HS_CEEB_CODE__C','Major01':'MAJOR_OF_INTEREST__C','Major02':'SECONDARY_MAJOR_OF_INTEREST__C'})
+    final_data = final_data.rename(columns={'Sequence':'Purchase ID', 'FirstName':'FIRST_NAME__C', 'LastName':'LAST_NAME__C', 'Email':'EMAIL__C', 'BirthDate':'BIRTHDATE__C', 'Gender':'GENDER__C', 'Concat ID':'CONCATID__C', 'Address':'ADDRESS_LINE_1__C', 'Address2':'ADDRESS_LINE_2__C', 'City':'CITY__C','State':'STATE__C','Zipcode':'ZIP_CODE__C','GraduationYear':'HS_GRADUATION_YEAR__C','Ceeb':'HS_CEEB_CODE__C','Major01':'MAJOR_OF_INTEREST__C','Major02':'SECONDARY_MAJOR_OF_INTEREST__C'})
     return final_data
 
 def data_clean(load_data):
     load_data = load_data[['Sequence']+['FirstName']+['LastName']+['Address']+['Address2']+['City']+['State']+['Zipcode']+['Email']+['Phone']+['CellPhone']+['Ceeb']+['BirthDate']+['Gender']+['GraduationYear']+['Major01']+['Major02']+['Race01']+['Race02']+['Race03']+['Race04']]
     load_data['Concat ID'] = load_data['FirstName'] + load_data['LastName'] + load_data['Address'].str[:10]
+    load_data.loc[load_data["Concat ID"].isnull(),'Concat ID'] = load_data["FirstName"] + load_data["LastName"]
     load_data['Concat ID'] = load_data['Concat ID'].str.lower()
     load_data['FirstName'] = load_data['FirstName'].str.title()
     load_data['LastName'] = load_data['LastName'].str.title()
@@ -36,9 +37,9 @@ def data_clean(load_data):
     load_data['COUNTRY__C'] = ""
     load_data['Gender'] = load_data['Gender'].map({'M' : 'Male', 'F': 'Female'})
 
+#    load_data.loc[load_data["CellPhone"].isnull(),'MOBILE__C'] = load_data["CellPhone"]
+
     for index, row in load_data.iterrows():
-        if(row['Concat ID'] == ""):
-            load_data.at[index,"Inquiry Product"] = row['First Name'] + row['Last Name']
         if(row['CellPhone'] == ""):
             load_data.at[index,'MOBILE__C'] = row['CellPhone']
         else:
