@@ -19,9 +19,7 @@ def SAP():
         data = pd.read_excel("SAP Applicant File.xlsx")
         
         data['Concat ID'] = data['VORNA'] + data['NACHN'] + data['FMTSTREET'].str[:10]
-        for index, row in data.iterrows():
-            if (row['FMTSTREET'] == ''):
-                data.at[index,"Concat ID"] = row['VORNA'] + row['NACHN']               
+        data.loc[data["Concat ID"].isnull(),'Concat ID'] = data["VORNA"] + data["NACHN"]              
 
         data['Concat ID'] = data['Concat ID'].str.lower()
         
@@ -39,10 +37,7 @@ def eab():
         print("Working on EAB Pop")
         
         data['Concat ID'] = data['First Name'] + data['Last Name'] + data['Mailing Street'].str[:10]
-
-        for index, row in data.iterrows():
-            if(row['Mailing Street'] == ''):
-                data.at[index,"Concat ID"] = row['First Name'] + row['Last Name']
+        data.loc[data["Concat ID"].isnull(),'Concat ID'] = data["First Name"] + data["Last Name"]
 
         data['Concat ID'] = data['Concat ID'].str.lower()
        
@@ -60,10 +55,7 @@ def marketing():
         data = pd.read_csv("marketing.csv", encoding = "ISO-8859-1")
         
         data['Concat ID'] = data['First Name'] + data['Last Name'] + data['Mailing Street'].str[:10]
-
-        for index, row in data.iterrows():
-            if(row['Mailing Street'] == ''):
-                data.at[index,"Concat ID"] = row['First Name'] + row['Last Name']
+        data.loc[data["Concat ID"].isnull(),'Concat ID'] = data["First Name"] + data["Last Name"]
 
         data['Concat ID'] = data['Concat ID'].str.lower()
         
@@ -79,11 +71,8 @@ def prospect():
     if file.exists ():
         print("Working on Prospect Pop")
         data = pd.read_csv("prospect.csv", encoding = "ISO-8859-1")
-        data['Concat ID'] = data['Contact: First Name'] + data['Contact: Last Name'] + data['Contact: Mailing Address Line 1'].str[:10]
-        
-        for index, row in data.iterrows():
-            if(row['Contact: Mailing Address Line 1'] == ''):
-                data.at[index,"Concat ID"] = row['Contact: First Name'] + row['Contact: Last Name']
+        data['Concat ID'] = data['Contact: First Name'] + data['Contact: Last Name'] + data['Contact: Mailing Address Line 1'].str[:10]  
+        data.loc[load_data["Concat ID"].isnull(),'Concat ID'] = data['Contact: First Name'] + data['Contact: Last Name']
 
         data['Concat ID'] = data['Concat ID'].str.lower()
             
@@ -100,9 +89,8 @@ def transfer():
         data = pd.read_csv("transfer.csv", encoding = "ISO-8859-1")
         print("Working on Transfer Pop") 
         data['Concat ID'] = data['First Name'] + data['Last Name'] + data['Mailing Street'].str[:10]
-        for index, row in data.iterrows():
-            if(row['Mailing Street'] == ''):
-                data.at[index,"Concat ID"] = row['First Name'] + row['Last Name']
+        data.loc[data["Concat ID"].isnull(),'Concat ID'] = data["First Name"] + data["Last Name"]
+       
 
         data['Concat ID'] = data['Concat ID'].str.lower()
         
