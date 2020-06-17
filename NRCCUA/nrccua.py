@@ -27,7 +27,7 @@ def data_clean(load_data):
     load_data['Native Hawaiian/Pacific Islander']= ""
     load_data['Hispanic/Latino']= ""
     load_data['Race/Ethnicity Unknown']= ""
-    load_data['Source'] = ""
+    load_data['SOURCE__C'] = ""
     load_data['LOAD_DATE__C'] = ""
     load_data['YEAR__C'] = ""
     load_data['TERM__C'] = ""
@@ -37,18 +37,13 @@ def data_clean(load_data):
     load_data['COUNTRY__C'] = ""
     load_data['Gender'] = load_data['Gender'].map({'M' : 'Male', 'F': 'Female'})
 
-#    load_data.loc[load_data["CellPhone"].isnull(),'MOBILE__C'] = load_data["CellPhone"]
-
-    for index, row in load_data.iterrows():
-        if(row['CellPhone'] == ""):
-            load_data.at[index,'MOBILE__C'] = row['CellPhone']
-        else:
-            load_data.at['MOBILE__C'] = row['Phone']
-        load_data.at[index,"SOURCE__C"] = "NRCCUA DSC"
-        load_data.at[index,"TERM__C"] = "Fall"
-        load_data.at[index,"STUDENT_STATUS__C"] = "Inquiry"
-        load_data.at[index,"STUDENT_TYPE__C"] = "Freshman"
-        load_data.at[index, 'COUNTRY__C'] = "US"
+    load_data.loc[load_data['MOBILE__C']== "",'MOBILE__C'] = load_data["CellPhone"]
+    load_data.loc[load_data['MOBILE__C'].isnull(),'MOBILE__C'] = load_data["Phone"]
+    load_data.loc[load_data["SOURCE__C"] == "",'SOURCE__C'] = "NRCCUA DSC"
+    load_data.loc[load_data["STUDENT_STATUS__C"]== "","STUDENT_STATUS__C"] = "Inquiry"
+    load_data.loc[load_data["TERM__C"]== "","TERM__C"] = "Fall"
+    load_data.loc[load_data["STUDENT_TYPE__C"]== "","STUDENT_TYPE__C"] = "Freshman"
+    load_data.loc[load_data['COUNTRY__C']== "",'COUNTRY__C'] = "US"
 
     return load_data
 
@@ -66,7 +61,7 @@ def imports():
     else:
         print("Major Decoder file not found")
 
-    return data, major_file
+    return data, major_data
 
 def main():
     new_import, major_data = imports()
@@ -75,5 +70,6 @@ def main():
     nrccua_data = data_reorder(nrccua_data)
     nrccua_data.to_csv('NRCCUA_upgrade.csv', index=False)
 
+    print("Cappex data transformation complete!")
 
 main()

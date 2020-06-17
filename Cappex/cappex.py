@@ -3,7 +3,6 @@ from pathlib import *
 from datetime import date
 
 def data_reorder(final_data):
-    print(final_data.head())
     final_data = final_data.reindex(columns=['SOURCE__C', 'LOAD_DATE__C', 'FIRST_NAME__C', 'LAST_NAME__C', 'EMAIL__C', 'BIRTHDATE__C', 'GENDER__C', 'CONCATID__C', 'ADDRESS_LINE_1__C', 'ADDRESS_LINE_2__C', 'CITY__C', 'STATE__C', 'ZIP_CODE__C', 'COUNTRY__C', 'MOBILE__C', 'HS_GRADUATION_YEAR__C', 'HS_CEEB_CODE__C', 'YEAR__C', 'TERM__C', 'STUDENT_STATUS__C', 'STUDENT_TYPE__C', 'ACT/SAT Max Cumulative', 'MAJOR_OF_INTEREST__C', 'SECONDARY_MAJOR_OF_INTEREST__C', 'AMERICAN_INDIAN_ALASKAN_NATIVE__C', 'ASIAN__C', 'BLACK_AFRICAN_AMERICAN__C', 'WHITE_CAUCASIAN__C', 'Hispanic/Latino', 'Race/Ethnicity Unknown'])
     return final_data
 
@@ -32,15 +31,14 @@ def data_clean(load_data):
     load_data['TERM__C'] = ""
     load_data['STUDENT_STATUS__C'] = ""
     load_data['STUDENT_TYPE__C'] = ""
-    load_data['Gender'] = load_data['Gender'].map({'M' : 'Male', 'F': 'Female'})
-    load_data['Country'] = load_data['Country'].map({'United States': 'US'})
 
-    for index, row in load_data.iterrows():
-        if(row['Inquiry Product'] == 'Greenlight'):
-            load_data.at[index,"Inquiry Product"] = "Cappex Greenlight"
-        load_data.at[index,"TERM__C"] = "Fall"
-        load_data.at[index,"STUDENT_STATUS__C"] = "Inquiry"
-        load_data.at[index,"STUDENT_TYPE__C"] = "Freshman"
+    load_data['Inquiry Product'].replace({'Greenlight':'Cappex Greenlight'}, inplace=True)
+    load_data['Country'].replace({'United States': 'US', 'USA':'US'}, inplace=True)
+    load_data['Gender'].replace({'M' : 'Male', 'F': 'Female'}, inplace=True)
+
+    load_data.loc[load_data["STUDENT_STATUS__C"]== "","STUDENT_STATUS__C"] = "Inquiry"
+    load_data.loc[load_data["TERM__C"]== "","TERM__C"] = "Fall"
+    load_data.loc[load_data["STUDENT_TYPE__C"]== "","STUDENT_TYPE__C"] = "Freshman"
 
     return load_data
 
@@ -66,6 +64,8 @@ def main():
     cappex_data = data_rename(cappex_data)
     cappex_data = data_reorder(cappex_data)
     cappex_data.to_csv('Cappex_upgrade.csv', index=False)
+
+    print("Cappex data transformation complete!")
 
 
 main()

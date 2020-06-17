@@ -66,8 +66,6 @@ def main():
     YouVisit_data = data_compare(YouVisit_data, major_data)
     YouVisit_data = data_rename(YouVisit_data)
     YouVisit_data = data_reorder(YouVisit_data)
-#    print(YouVisit_data.head())
-
     YouVisit_data.to_csv('YouVisit_upgrade.csv', index=False)
 
 main()
