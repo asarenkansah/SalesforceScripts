@@ -26,16 +26,19 @@ def data_clean(load_data):
     load_data["YEAR__C"] = ""
     load_data["TERM__C"] = ""
     load_data["STUDENT_STATUS__C"] = ""
-    today = date.today()
-    full_date = str(today.strftime("%d/%m/%Y"))
 
     for index, row in load_data.iterrows():
         if(row['Visitor Id'] == "Alumni" or row['Visitor Id'] == "Parent of High School Student" or row['Visitor Id'] == "College Graduate" or row['Visitor Id'] == "Faculty / Staff" or row['Visitor Id'] == "Faculty / Staff" ):
             load_data = load_data.drop([index])
-        load_data.at[index,"SOURCE__C"] = "VisitDays"
-        load_data.at[index,"TERM__C"] = "Fall"
-        load_data.at[index,"STUDENT_STATUS__C"] = "Inquiry"
-        load_data.at[index, "LOAD_DATE__C"] = full_date
+    load_data.loc[load_data["SOURCE__C"] == "",'SOURCE__C'] = "VisitDays"
+    load_data.loc[load_data["STUDENT_STATUS__C"] == "","STUDENT_STATUS__C"] = "Inquiry"
+    load_data.loc[load_data["TERM__C"] == "","TERM__C"] = "Fall"
+    load_data.loc[load_data["YEAR__C"] == "","YEAR__C"] = load_data['Enrollment Year'] + 1
+
+#        load_data.at[index,"SOURCE__C"] = "VisitDays"
+#        load_data.at[index,"TERM__C"] = "Fall"
+#        load_data.at[index,"STUDENT_STATUS__C"] = "Inquiry"
+#        load_data.at[index, "LOAD_DATE__C"] = full_date
 
     return load_data
 

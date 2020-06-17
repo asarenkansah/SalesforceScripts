@@ -44,6 +44,7 @@ def data_clean(load_data):
     load_data.loc[load_data["TERM__C"]== "","TERM__C"] = "Fall"
     load_data.loc[load_data["STUDENT_TYPE__C"]== "","STUDENT_TYPE__C"] = "Freshman"
     load_data.loc[load_data['COUNTRY__C']== "",'COUNTRY__C'] = "US"
+    load_data.loc[load_data["YEAR__C"] == "","YEAR__C"] = load_data['GraduationYear'] + 1
 
     return load_data
 
