@@ -14,6 +14,7 @@ def data_rename(final_data):
 def data_clean(load_data):
     load_data = load_data[['Raise.me Code'] + ['First Name'] + ['Last Name'] + ['Email'] + ['Mobile'] + ['Projected Graduation Year'] + ['DOB'] + ['Academic Interest Name 1'] + ['Academic Interest Name 2'] + ['Street Address'] + ['City'] + ['Subdivision'] + ['Postal Code']+ ['Country'] + ['Gender']  + ['CEEB Code'] + ['Race/Ethnicity']]
     load_data['Concat ID'] = load_data['First Name'] + load_data['Last Name'] + load_data['Street Address'].str[:10]
+    load_data.loc[load_data["Concat ID"].isnull(),'Concat ID'] = load_data["First Name"] + load_data["Last Name"]
     load_data['Concat ID'] = load_data['Concat ID'].str.lower()
     load_data['First Name'] = load_data['First Name'].str.title()
     load_data['Last Name'] = load_data['Last Name'].str.title()
@@ -35,9 +36,7 @@ def data_clean(load_data):
     load_data['Gender'] = load_data['Gender'].map({'M' : 'Male', 'F': 'Female'})
 
     for index, row in load_data.iterrows():
-        if(row['Concat ID'] == ""):
-            load_data['Concat ID'] = load_data['First Name'] + load_data['Last Name']
-        load_data.at[index,"SOURCE__C"] = "VisitDays"
+        load_data.at[index,"SOURCE__C"] = "RaiseMe"
         load_data.at[index,"TERM__C"] = "Fall"
         load_data.at[index,"STUDENT_STATUS__C"] = "Inquiry"
         load_data.at[index,"STUDENT_TYPE__C"] = "Freshman"
@@ -45,10 +44,10 @@ def data_clean(load_data):
     return load_data
 
 def imports():
-    file = Path("200610_RaiseMe_original.csv")
-    if file.exists ():
-        data = pd.read_csv("200610_RaiseMe_original.csv")
 
+    file = Path("200616_RaiseMe_original.csv")
+    if file.exists ():
+        data = pd.read_csv("200616_RaiseMe_original.csv")
     else:
         print("RaiseMe file not found")
 
