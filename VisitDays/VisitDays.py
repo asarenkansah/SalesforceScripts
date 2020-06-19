@@ -34,18 +34,14 @@ def data_clean(load_data):
     load_data.loc[load_data["STUDENT_STATUS__C"] == "","STUDENT_STATUS__C"] = "Inquiry"
     load_data.loc[load_data["TERM__C"] == "","TERM__C"] = "Fall"
     load_data.loc[load_data["YEAR__C"] == "","YEAR__C"] = load_data['Enrollment Year'] + 1
-
-#        load_data.at[index,"SOURCE__C"] = "VisitDays"
-#        load_data.at[index,"TERM__C"] = "Fall"
-#        load_data.at[index,"STUDENT_STATUS__C"] = "Inquiry"
-#        load_data.at[index, "LOAD_DATE__C"] = full_date
+    load_data.loc[load_data["LOAD_DATE__C"] == "","LOAD_DATE__C"] = "6/18/2020"
 
     return load_data
 
 def imports():
-    file = Path("200611_VisitDays_original.csv")
+    file = Path("200618_VisitDays_original.csv")
     if file.exists ():
-        data = pd.read_csv("200611_VisitDays_original.csv", encoding = "ISO-8859-1")
+        data = pd.read_csv("200618_VisitDays_original.csv", encoding = "ISO-8859-1")
     else:
         print("VisitDays file not found")
 
