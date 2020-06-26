@@ -3,7 +3,7 @@ from pathlib import *
 from datetime import date
 
 def data_reorder(final_data):
-    final_data = final_data.reindex(columns=['SOURCE__C', 'LOAD_DATE__C', 'FIRST_NAME__C', 'LAST_NAME__C', 'EMAIL__C', 'BIRTHDATE__C', 'GENDER__C', 'CONCATID__C', 'ADDRESS_LINE_1__C', 'ADDRESS_LINE_2__C', 'CITY__C', 'STATE__C', 'ZIP_CODE__C', 'COUNTRY__C', 'MOBILE__C', 'HS_GRADUATION_YEAR__C', 'HS_CEEB_CODE__C', 'YEAR__C', 'TERM__C', 'STUDENT_STATUS__C', 'STUDENT_TYPE__C', 'ACT/SAT Max Cumulative', 'MAJOR_OF_INTEREST__C', 'SECONDARY_MAJOR_OF_INTEREST__C', 'AMERICAN_INDIAN_ALASKAN_NATIVE__C', 'ASIAN__C', 'BLACK_AFRICAN_AMERICAN__C', 'WHITE_CAUCASIAN__C', 'Hispanic/Latino', 'Race/Ethnicity Unknown'])
+    final_data = final_data.reindex(columns=['SOURCE__C', 'LOAD_DATE__C', 'FIRST_NAME__C', 'LAST_NAME__C', 'CONCATID__C', 'EMAIL__C', 'BIRTHDATE__C', 'GENDER__C', 'ADDRESS_LINE_1__C', 'ADDRESS_LINE_2__C', 'CITY__C', 'STATE__C', 'ZIP_CODE__C', 'COUNTRY__C', 'MOBILE__C', 'HS_GRADUATION_YEAR__C', 'HS_CEEB_CODE__C', 'YEAR__C', 'TERM__C', 'STUDENT_STATUS__C', 'STUDENT_TYPE__C', 'ACT/SAT Max Cumulative', 'MAJOR_OF_INTEREST__C', 'SECONDARY_MAJOR_OF_INTEREST__C', 'Ethnicity - Fixed List', 'AMERICAN_INDIAN_ALASKAN_NATIVE__C', 'ASIAN__C', 'BLACK_AFRICAN_AMERICAN__C', 'WHITE_CAUCASIAN__C', 'Hispanic/Latino', 'Race/Ethnicity Unknown'])
     return final_data
 
 def data_rename(final_data):
@@ -11,7 +11,7 @@ def data_rename(final_data):
     return final_data
 
 def data_clean(load_data):
-    load_data = load_data[['Inquiry Product'] + ['First Name'] + ['Last Name'] + ['Concat ID'] + ['Email Address'] + ['Birth Date'] + ['Gender'] + ['Address1'] + ['Address2'] + ['City'] + ['State'] + ['Zip Code'] + ['Country'] + ['Primary Phone'] + ['Expected HS Graduation Date'] + ['ACT Composite'] + ['CEEB Code'] + ['Major 1'] + ['Major 2'] + ['Ethnicity - Fixed List']]
+    load_data = load_data[['Inquiry Product'] + ['First Name'] + ['Last Name'] + ['Email Address'] + ['Birth Date'] + ['Gender'] + ['Address1'] + ['Address2'] + ['City'] + ['State'] + ['Zip Code'] + ['Country'] + ['Primary Phone'] + ['Expected HS Graduation Date'] + ['ACT Composite'] + ['CEEB Code'] + ['Major 1'] + ['Major 2'] + ['Ethnicity - Fixed List']]
     load_data['Concat ID'] = load_data['First Name'] + load_data['Last Name'] + load_data['Address1'].str[:10]
     load_data['Concat ID'] = load_data['Concat ID'].str.lower()
     load_data['First Name'] = load_data['First Name'].str.title()
@@ -43,9 +43,9 @@ def data_clean(load_data):
     return load_data
 
 def imports():
-    file = Path("200515_Cappex_original.csv")
+    file = Path("200619_Cappex_original.csv")
     if file.exists ():
-        data = pd.read_csv("200515_Cappex_original.csv", encoding = "ISO-8859-1")
+        data = pd.read_csv("200619_Cappex_original.csv", encoding = "ISO-8859-1")
     else:
         print("Cappex file not found")
 

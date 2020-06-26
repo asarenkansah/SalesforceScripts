@@ -1,79 +1,35 @@
 SOURCE__C,LOAD_DATE__C,FIRST_NAME__C,LAST_NAME__C,CONCATID__C,EMAIL__C,BIRTHDATE__C,ADDRESS_LINE_1__C,CITY__C,STATE__C,ZIP_CODE__C,MOBILE__C,HS_GRADUATION_YEAR__C,HS_CEEB_CODE__C,YEAR__C,TERM__C,STUDENT_STATUS__C,STUDENT_TYPE__C,MAJOR_OF_INTEREST__C,COUNTRY__C
-YouVisit,6/16/2020,Xavier,Miller,xaviermiller4100 s woo,Xaviermiller76@gmail.com,4/14/2002,4100 S Woodland Dr,Radcliff,KY,40160,2703128058,2020,180743,2021,Fall,Inquiry,Freshman,Accounting,US
-YouVisit,6/16/2020,Austin,Koelsch,austinkoelsch430 woodcr,Koelsch@yahoo.com,10/21/2002,430 Woodcrest Ln,Franklin,TN,37067,6155739668,2021,430405,2022,Fall,Inquiry,Freshman,Architecture,US
-YouVisit,6/16/2020,Paige,Goggin,paigegoggin107 autumn,21paigegoggin@penntrafford.org,5/20/2003,107 Autumn Dr,Trafford,PA,15085,,2021,391670,2022,Fall,Inquiry,Freshman,Biology,US
-YouVisit,6/16/2020,Kelly,Teach,kellyteach11326 laur,kteach026@gmail.com,1/23/2003,11326 Laura Lane,Frankfort,IL,60423,8159222936,2021,,2022,Fall,Inquiry,Freshman,Biology,US
-YouVisit,6/16/2020,Sydne,Jenkins,sydnejenkins35 goldenr,americangirl06@comcast.net,5/21/2003,35 Goldenrod Lane,Magnolia,DE,19962,,2021,,2022,Fall,Inquiry,Freshman,Biology,US
-YouVisit,6/16/2020,Kendall,Potts,kendallpottsus hwy 60 ,kendall.potts@uky.edu,11/18/2000,Us Hwy 60 E,Henderson,KY,42420,,2020,,2021,Fall,Inquiry,Transfer,Chemistry,US
-YouVisit,6/16/2020,Ashlee,Perry,ashleeperry2159 s coo,ashlee_perry@icloud.com,8/1/2000,2159 S Cooper Ct,Wichita,KS,67207,3162008158,2021,,2022,Fall,Inquiry,Transfer,Communication,US
-YouVisit,6/16/2020,Ciara,Jones,ciarajones21st,c.jones2303@icloud.com,1/23/2003,21St,Los Angeles,CA,90011,3232717825,2022,,2023,Fall,Inquiry,Freshman,Economics,US
-YouVisit,6/16/2020,Sydney,Hilgert,sydneyhilgert1757 chate,sehilgert02@gmail.com,10/23/2002,1757 Chateau Dr,Atlanta,GA,30338,4047710083,2021,2265,2022,Fall,Inquiry,Freshman,Exploratory in Business and Economics,US
-YouVisit,6/16/2020,Sophie,Deberardis,sophiedeberardis89 cassand,sophie_deberardis@students.nksd.net,4/18/2003,89 Cassandra Lane ,North Kingstown,RI,2852,4016010762,,400088,,Fall,Inquiry,Freshman,Exploratory in Humanities/Social Science,US
-YouVisit,6/16/2020,Alex,Hardinger,alexhardinger1006 willo,alex2015bp@outlook.com,12/5/2002,1006 Willow Glen Dr,Bethel Park,PA,15102,4128898840,2021,,2022,Fall,Inquiry,Freshman,Exploratory in Humanities/Social Science,US
-YouVisit,6/16/2020,Madeline,Welch,madelinewelch1095 s win,210483mw@saintviator.com,9/5/2002,1095 S Windhill Dr,Palatine,IL,60067,8479878868,2021,,2022,Fall,Inquiry,Freshman,Exploratory in Humanities/Social Science,US
-YouVisit,6/16/2020,Benjamin,Rewers,benjaminrewers1120 granv,benjamin.rewers@students.ignatius.org,8/22/2002,1120 Granville Ave ,Itasca,IL,60143,8722150322,2021,,2022,Fall,Inquiry,Freshman,Exploratory in Humanities/Social Science,US
-YouVisit,6/16/2020,Jaquelyn ,Cruz ,jaquelyn cruz 117 frankl,jackiecrruuz@icloud.com,3/11/2003,117 Franklin Ave,La Grange,KY,40031,5027585744,2021,181320,2022,Fall,Inquiry,Freshman,Exploratory in Humanities/Social Science,US
-YouVisit,6/16/2020,Josh,Chick,joshchick13007 tatt,joshuac2020@icloud.con,3/18/2003,13007 Tattersall Lane,Prospect,KY,40059,5024328822,2021,,2022,Fall,Inquiry,Freshman,Exploratory in Humanities/Social Science,US
-YouVisit,6/16/2020,Cade,Hahn,cadehahn1897 baldw,cadehahn@hotmail.com,4/2/2003,1897 Baldwin Way ,Bolingbrook,IL,60490,6302342171,2021,143108,2022,Fall,Inquiry,Freshman,Exploratory in Humanities/Social Science,US
-YouVisit,6/16/2020,Gannon,Mcginley,gannonmcginley2242 fairh,gannonemcginley@gmail.com,4/2/2002,2242 Fairhill Ave ,Glenside,PA,19038,2676256006,2021,390000,2022,Fall,Inquiry,Freshman,Exploratory in Humanities/Social Science,US
-YouVisit,6/16/2020,Bianca,Williams,biancawilliams720 new ch,biancawilliams890@gmail.com,8/17/2003,720 New Christman Lane,Shepherdsville,KY,40165,5024352454,2021,182412,2022,Fall,Inquiry,Freshman,Exploratory in Humanities/Social Science,US
-YouVisit,6/16/2020,Hetvi,Pethad,hetvipethadluiswadi,hetvi.pethad@gmail.com,5/24/2004,Luiswadi,Thane (W),,400604,8689966857,2022,,2023,Fall,Inquiry,Freshman,Exploratory in Humanities/Social Science,
-YouVisit,6/16/2020,Sheyla,Vazquez Perez,sheylavazquez perezmesa,sheyla1torres0@gmail.com,5/18/2002,Mesa,Mesa,AZ,85201,4808626747,2022,,2023,Fall,Inquiry,Freshman,Exploratory in Humanities/Social Science,US
-YouVisit,6/16/2020,Kelsey,Butler,kelseybutler16400 sout,kelsey40085@gmail.com,3/17/2003,16400 South 88Th Ave,Orland Park,IL,60462,7086359592,2021,144117,2022,Fall,Inquiry,Freshman,Exploratory Studies in Education,US
-YouVisit,6/16/2020,Aurora,Gonzalez Corona,auroragonzalez corona2060 monta,coronaurora1214@yahoo.com,12/14/2002,2060 Montana Ave,Sun Prairie,WI,53590,6082095829,2021,,2022,Fall,Inquiry,Freshman,Exploratory Studies in Education,US
-YouVisit,6/16/2020,Ethan,Hancock,ethanhancock3399 brook,hancocke@uscstudents.org,1/22/2003,3399 Brookdale Dr,Pittsburgh,PA,15241,4125511938,2021,,2022,Fall,Inquiry,Freshman,Exploratory Studies in Engineering,US
-YouVisit,6/16/2020,Monday,Carter,mondaycarter2551 midva,mcarter@atlantagirlsschool.org,7/17/2003,2551 Midvale Lane,Tucker,GA,30084,4049316658,2021,,2022,Fall,Inquiry,Freshman,Food Science,US
-YouVisit,6/16/2020,Michaela,Cahill,michaelacahill450 s stra,macahill022@gmail.com,8/27/2002,450 S Stratford Ave,Elmhurst,IL,60126,6302946360,,,,Fall,Inquiry,Freshman,Human Nutrition,US
-YouVisit,6/16/2020,Kristen,Newstreet,kristennewstreet5667 butto,kristennewstreet@comcast.net,11/21/2002,5667 Buttonwood Court,Stone Mountain,GA,30087,4705399990,2021,,2022,Fall,Inquiry,Freshman,Integrated Strategic Communication,US
-YouVisit,6/16/2020,Kyeongbin,Yong,,ykb1127@naver.com,11/27/1997,,,,,,2020,,2021,Fall,Inquiry,Transfer,International Studies,
-YouVisit,6/16/2020,Alex,Michalec,alexmichalec259 tallow,amichalec62703@gmail.com,6/27/2003,259 Tallowwood Dr,Westerville,OH,43081,6146072655,,,,Fall,Inquiry,Freshman,Journalism,US
-YouVisit,6/16/2020,Rachael,Wilding,rachaelwilding6048 sunva,rachaelewilding38@gbstu.org,7/24/2004,6048 Sunvalley Drive,Grand Blanc,MI,48439,,2022,,2023,Fall,Inquiry,Freshman,Journalism,US
-YouVisit,6/16/2020,Jaime,Calabrese,jaimecalabrese39w727 hen,jaime.calabrese@me.com,7/14/2003,39W727 Henry David Thoreau Place,Saint Charles,IL,60175,6307152908,2021,,2022,Fall,Inquiry,Freshman,Marketing,US
-YouVisit,6/16/2020,Anna Grace ,Porter,anna grace porter1215 broke,Pigsforlif@gmail.com,11/24/2003,1215 Broken Bow Circle ,Alabaster,AL,35007,2054847304,2024,12485,2025,Fall,Inquiry,Freshman,Music Education,US
-YouVisit,6/16/2020,Emma,Gapski,emmagapski10424 lave,emmagapski@yahoo.com,6/4/2003,10424 Lavergne Ave,Oak Lawn,IL,60453,7087387455,2021,,2022,Fall,Inquiry,Freshman,Nursing,US
-YouVisit,6/16/2020,Allie,Kidwell,alliekidwell107 bruner,allie.kidwell003@gmail.com,7/30/2003,107 Bruner Lane,Wilmore,KY,40390,8599636820,2021,181985,2022,Fall,Inquiry,Freshman,Nursing,US
-YouVisit,6/16/2020,Claire,Garland,clairegarland15450 mccl,garlacla000@hsestudents.org,1/7/2003,15450 Mcclarnden Drive,Fortville,IN,46040,3177523991,2021,151045,2022,Fall,Inquiry,Freshman,Nursing,US
-YouVisit,6/16/2020,Claudia,Burke,claudiaburke33 sunrise,claudiaburke5@icloud.com,6/23/2003,33 Sunrise Hill,Pittsford,NY,14534,5853480901,2021,,2022,Fall,Inquiry,Freshman,Nursing,US
-YouVisit,6/16/2020,Claudia,Burke,claudiaburke33 sunrise,claudiaburke5@icloud.com,6/23/2003,33 Sunrise Hill,Pittsford,NY,14534,5853480901,2021,334529,2022,Fall,Inquiry,Freshman,Nursing,US
-YouVisit,6/16/2020,Alyssa,Dufault,alyssadufault533 w crys,alyssadufault7903@gmail.com,7/9/2003,533 W Crystal St,Mundelein,IL,60060,8478571001,2021,,2022,Fall,Inquiry,Freshman,Nursing,US
-YouVisit,6/16/2020,Alexzia,Greene,alexziagreene1372 bonni,alexzia.greene2@gmail.com,4/2/2004,1372 Bonnie Blue Loop,Lawrenceburg,KY,40342,5025988748,2022,,2023,Fall,Inquiry,Freshman,Plant and Soil Science,US
-YouVisit,6/16/2020,Madison,Aber,madisonaber3830 villa,madison.e.aber@gmail.com,12/24/2002,3830 Village Estates Court,Cumming,GA,30040,7708405300,2021,110920,2022,Fall,Inquiry,Freshman,Political Science,US
-YouVisit,6/16/2020,Taylor ,Esmie ,taylor esmie 365 tourna,tcesmie@mail.com,3/29/2004,365 Tournament Players Dr,Alpharetta,GA,30004,6788787648,2022,,2023,Fall,Inquiry,Freshman,Political Science,US
-YouVisit,6/16/2020,Petra,Grald,petragrald33 orange ,pgrald18@gmail.com,3/18/2003,33 Orange Avenue,Goshen,NY,10924,8457723281,2022,332135,2023,Fall,Inquiry,Freshman,Pre-Law,US
-YouVisit,6/16/2020,Kayla ,Karbowski,kayla karbowski1512 trail,Karbo4@comcast.net,4/9/2003,1512 Trailwood Dr,Crystal Lake,IL,60014,2246397115,,141515,,Fall,Inquiry,Freshman,Pre-Medicine,US
-YouVisit,6/16/2020,Rekha,Pat,rekhapat,pjgfdy@gmail.com,5/16/2006,,,,,8653124754,2024,,2025,Fall,Inquiry,Freshman,Pre-Medicine,
-YouVisit,6/16/2020,Kelly,Blair,kellyblair5640 st. c,bla1029-2@mdwildcats.com,6/27/2003,5640 St. Charles Drive,Mount Vernon,IN,47620,8124552391,2022,150970,2023,Fall,Inquiry,Freshman,Pre-Pharmacy,US
-YouVisit,6/16/2020,Jaclyn ,Prystawsky ,jaclyn prystawsky durango,jpry830@gmail.com,8/30/2006,Durango,Gilberts,IL,60136,2246392476,2024,142185,2025,Fall,Inquiry,Freshman,Pre-Veterinary Medicine,US
-YouVisit,6/16/2020,Khushi,Shah,khushishah,khushishah40128@gmail.com,6/28/2003,,Mumbai,,400056,9820861981,2021,,2022,Fall,Inquiry,Freshman,Psychology,
-YouVisit,6/16/2020,Mary,Wieland,marywieland1312 elton,mary.wieland@sstx.org,12/7/2002,1312 Elton Lane,Austin,TX,78703,5129871488,2021,,2022,Fall,Inquiry,Freshman,Psychology,US
-YouVisit,6/16/2020,Emma,Wilson,emmawilsonmartin lut,Emma.wilson@icloud.com,6/6/2003,Martin Luther King Blvd,Louisville,KY,40221,5028859950,2021,181580,2022,Fall,Inquiry,Freshman,Psychology,US
-YouVisit,6/16/2020,Allie,Silvestrini,alliesilvestrini104 edward,allison.silvestrini@uky.edu,,"104 Edward Street, 346",O Fallon,IL,62269,,,,,Fall,Inquiry,Freshman,,
-YouVisit,6/16/2020,Harrison Powe,Powe,harrison powepowe222 vintag,alicepowe27@gmail.com,9/15/2002,222 Vintage Hill Lane,Huntersville,NC,28078,,,,,Fall,Inquiry,Freshman,,US
-YouVisit,6/16/2020,Maggie,Schroeder,maggieschroeder420 south ,canteron12@gmail.com,10/12/2002,420 South Grand Avenue,Fort Thomas,KY,41075,8594144125,,,,Fall,Inquiry,Freshman,,US
-YouVisit,6/16/2020,Much,Rosidi,muchrosididirektorat,muchrosidi@gmail.com,,"Direktorat Ppk Blu, Gd. Prijadi Praptosuhardjo I Lt. 5",Jakarta Pusat,,10710,,,,,Fall,Inquiry,Freshman,,
-YouVisit,6/16/2020,Allison,Shockley,,ashockley@snss.org,,,,,,,,,,Fall,Inquiry,Freshman,,
-YouVisit,6/16/2020,Sakshi,Kumar,,sakshikumar2060@gmail.com,,,,,,,,,,Fall,Inquiry,Freshman,,
-YouVisit,6/16/2020,Jadsia,Crowe,,crowejadsia101@gmail.com,6/20/2000,,,,,,,,,Fall,Inquiry,Freshman,,
-YouVisit,6/16/2020,Aidan,Kielty,,akielty21@nssk12.org,,,,,,,,,,Fall,Inquiry,Freshman,,
-YouVisit,6/16/2020,Allison,Mair,,anmair02@icloud.com,,,,,,,,,,Fall,Inquiry,Freshman,,
-YouVisit,6/16/2020,Juan,Placido,,carloslauren233@gmail.com,,,,,,,,,,Fall,Inquiry,Freshman,,
-YouVisit,6/16/2020,Janae ,Wynn,,nay23608@gmail.com,,,,,,,,,,Fall,Inquiry,Freshman,,
-YouVisit,6/16/2020,Thomas,Burden,,tlbu245@uky.edu,,,,,,,,,,Fall,Inquiry,Freshman,,
-YouVisit,6/16/2020,Kamirah ,Barnes ,kamirah barnes 3575 anna ,kamirahbarnes93@gmail.com,8/18/2002,3575 Anna Ruby Lane ,Douglasville,GA,30135,6786188768,2020,111107,2021,Fall,Inquiry,Freshman,,US
-YouVisit,6/16/2020,Brooke,Sutter,brookesutter8105 fe ca,sutterbrooke17@gmail.com,6/16/1999,8105 Fe Carter Rd,Laurel,MD,20724,3018759176,2020,5019,2021,Fall,Inquiry,Transfer,,US
-YouVisit,6/16/2020,Graham ,Paquette,graham paquette128 fernwo,grahampaquette@icloud.com,2/12/2003,128 Fernwood Dr. ,Woodstock,GA,30188,7705614406,2021,,2022,Fall,Inquiry,Freshman,,US
-YouVisit,6/16/2020,Alexandra,Fauth,alexandrafauth12840 barr,alliefauth@icloud.com,12/7/2002,12840 Barrow Lane,Plainfield,IL,60585,,2021,,2022,Fall,Inquiry,Freshman,,US
-YouVisit,6/16/2020,Ruby,Bristol,rubybristol14338 w 88,lolruby18@gmail.com,4/26/2003,14338 W 88Th Pl Unit B,Arvada,CO,80005,3039101294,2021,60051,2022,Fall,Inquiry,Freshman,,US
-YouVisit,6/16/2020,Camille,Sheetz,camillesheetz217 s 2nd ,camille.sheetz@gmail.com,1/28/2003,217 S 2Nd Street Upper,Saint Charles,IL,60174,6307807013,2021,,2022,Fall,Inquiry,Freshman,,US
-YouVisit,6/16/2020,Kage,Baker,"kagebaker280, inver",kagebaker2009@gmail.com,9/30/2003,"280, Inverness Trl",Richmond,KY,40475,8596846977,2021,181425,2022,Fall,Inquiry,Freshman,,US
-YouVisit,6/16/2020,Storme,Musson,stormemusson404 e 1st ,ssrmusson@gmail.com,10/28/2002,404 E 1St St,Perry,MI,48872,,2021,143460,2022,Fall,Inquiry,Freshman,,US
-YouVisit,6/16/2020,Madeline ,Griffith,madeline griffith954 troon ,mhg.2003@icloud.com,5/23/2003,954 Troon Circle ,Frankfort,IL,60423,,2021,,2022,Fall,Inquiry,Freshman,,US
-YouVisit,6/16/2020,Bella,Scott,bellascott120 loblol,mcgraw120@yahoo.com,11/3/2003,120 Loblolly Dr.,Spartanburg,SC,29303,,2022,411852,2023,Fall,Inquiry,Freshman,,US
-YouVisit,6/16/2020,Meghan,Hurtgen,meghanhurtgen1407 schum,meghanhurtgen@gmail.com,1/8/2004,1407 Schuman Drive,Watertown,WI,53098,,2022,,2023,Fall,Inquiry,Freshman,,US
-YouVisit,6/16/2020,Karmyn,Gross,karmyngross1523 radhi,groskar@fortschools.org,2/6/2004,1523 Radhika St,Fort Atkinson,WI,53538,9207235713,2022,500690,2023,Fall,Inquiry,Freshman,,US
-YouVisit,6/16/2020,Hailey ,Grispo,hailey grispo25418 past,kimgrispo@gmail.com,9/28/2003,25418 Pastoral Dr,Plainfield,IL,60585,6303030663,2022,,2023,Fall,Inquiry,Freshman,,US
-YouVisit,6/16/2020,Hailey,Smith,haileysmith6360 verdo,haileyrsmith0703@gmail.com,7/2/2003,6360 Verdon Gorge Dr,Fort Worth,TX,76179,8595831013,2022,180643,2023,Fall,Inquiry,Freshman,,US
-YouVisit,6/16/2020,Isaiah,Finley,isaiahfinley80 antieta,isaiah.finley@londonk12.me,12/14/2001,80 Antietam St,London,OH,43140,7405008301,2022,,2023,Fall,Inquiry,Freshman,,US
-YouVisit,6/16/2020,Nidhi,Paraswani,,dr.babita.paraswani@gmail.com,7/1/2004,,,,,9922333177,2022,,2023,Fall,Inquiry,Freshman,,
-YouVisit,6/16/2020,Ana,James,,anaclaralc17@gmail.com,1/16/2007,,,,,,2025,,2026,Fall,Inquiry,Freshman,,
-YouVisit,6/16/2020,Michael,Brady,,mbbr232@uky.edu,,,,,,,,,,Fall,Inquiry,Freshman,,
+YouVisit,,Yassine,Hannin,yassinehannin8626 w ber,yassinehannin1@gmail.com,6/22/1999,8626 W Berwyn Ave,Chicago,IL,60656.0,3122927737.0,,,,Fall,Inquiry,Transfer Student,Kinesiology (Exercise Science),US
+YouVisit,,Samuel ,Whitaker,samuel whitaker750 coal p,whitaker20@hotmail.com,12/18/2005,750 Coal Pit Rd.,Somerset,KY,42503.0,,2024.0,,,Fall,Inquiry,High School Student,,US
+YouVisit,,Aaliyah ,Younger ,aaliyah younger ,Aaliyahjy0911@icloud.com,,,,,,,,,,Fall,Inquiry,Current Student,,
+YouVisit,,Evan,Kindseth,evankindseth13330 bras,evankindseth2022@gmail.com,12/2/2003,13330 Brass Parkway,Rosemount,MN,55068.0,6126008970.0,2022.0,242125.0,,Fall,Inquiry,High School Student,,US
+YouVisit,,Kayla,Fox,kaylafox2434 w 107,fox.kayla@students.marist.net,8/19/2003,2434 W 107Th St,Chicago,IL,60655.0,7737260211.0,2021.0,,,Fall,Inquiry,High School Student,,US
+YouVisit,,Sadie,Smith,sadiesmith2179 sanjo,Sadiebeth01@gmail.com,11/27/2002,2179 Sanjo Drive,Lizella,GA,31052.0,4784618254.0,2021.0,,,Fall,Inquiry,High School Student,Psychology,US
+YouVisit,,Jack,Davis,jackdavis19880 beth,816095@lcps.org,10/7/2003,19880 Bethpage Ct,Ashburn,VA,20147.0,7039891231.0,2023.0,470135.0,,Fall,Inquiry,High School Student,Management,US
+YouVisit,,Dwight,Ausbrooks,dwightausbrooks1717 kenyo,djausbrooks@gmail.com,11/19/1999,1717 Kenyon St Nw,Washington,DC,20010.0,2029078344.0,2020.0,53052.0,,Fall,Inquiry,High School Graduate,Music Liberal Arts,US
+YouVisit,,Matthew,Meyer,matthewmeyer3516 meado,meyermt21@stxtigers.com,7/4/2002,3516 Meadow Bluff Way,Louisville,KY,40245.0,,,,,Fall,Inquiry,High School Student,,US
+YouVisit,,Mikai,Combs,mikaicombs109 weaver,mcx.combs@hotmail.com,4/20/2003,109 Weaverdale Ln ,Minoa,NY,13116.0,3155607990.0,2021.0,331750.0,,Fall,Inquiry,High School Student,Exploratory Studies in Engineering,US
+YouVisit,,Harmony,Sample,harmonysamplequeen elai,harmonyvball06@gmail.com,9/19/2003,Queen Elaine Dr,The Colony,TX,75056.0,2144936356.0,2022.0,,,Fall,Inquiry,High School Student,,US
+YouVisit,,Meghan ,Jones,meghan jonesfield gras,mjo55@uky.edu,3/26/2002,Field Grass Sq,Ashburn,VA,20147.0,5713373333.0,2020.0,,,Fall,Inquiry,High School Graduate,Pre-Veterinary Medicine,US
+YouVisit,,Eboni ,Nathaniel ,eboni nathaniel 19491 mano,eboninathaniel@gmail.com,10/24/2003,19491 Manor ,Detroit,MI,48221.0,3135238567.0,2021.0,,,Fall,Inquiry,High School Student,Nursing,US
+YouVisit,,Adam,Foley,adamfoleyzig zag ro,acefo2k3@gmail.com,3/6/2003,Zig Zag Road,Cincinnati,OH,45242.0,5138509685.0,2021.0,,,Fall,Inquiry,High School Student,Exploratory in Business and Economics,US
+YouVisit,,Darrion ,Franklin ,darrion franklin 1812 jake ,darrionfranklin729@gmail.com,12/25/2003,1812 Jake Andrews Avenue ,North Las Vegas,NV,89086.0,7027011229.0,2022.0,,,Fall,Inquiry,High School Student,,US
+YouVisit,,Aidan,Tobin,aidantobin113 nostra,ajtobes_48@gmail.com,4/8/2003,113 Nostrand Ave ,Thornwood,NY,10594.0,8457932968.0,2021.0,,,Fall,Inquiry,High School Student,Finance,US
+YouVisit,,Madelyn,Tumbleson,madelyntumblesonhopkins,MadelynTumbleson@gmail.com,4/18/2003,Hopkins,Lakewood,OH,44107.0,2165718230.0,2022.0,362865.0,,Fall,Inquiry,High School Student,,US
+YouVisit,,Brittany,Sebree,brittanysebree1305 aline,brittanysebree03@gmail.com,4/14/2003,1305 Aline Ave,Nashville,TN,37207.0,6159194489.0,2022.0,432421.0,,Fall,Inquiry,High School Student,Civil Engineering,US
+YouVisit,,Allison,Vialpando,allisonvialpando5104 heath,aevialpando@gmail.com,6/16/2001,5104 Heather Hill Road,La Grange,KY,40031.0,9546217379.0,,,,Fall,Inquiry,High School Student,,US
+YouVisit,,Madison,Audi,madisonaudi21535 wild,madrae624@gmail.com,3/21/2003,21535 Wild Timber Ct,Ashburn,VA,20148.0,7036242503.0,2021.0,470061.0,,Fall,Inquiry,High School Student,Human Nutrition,US
+YouVisit,,Gabriella,Morris,gabriellamorris14060 s 88,210821@d230.org,3/15/2003,14060 S 88Th Ave,Orland Park,IL,60462.0,7085189107.0,2021.0,143325.0,,Fall,Inquiry,High School Student,Exploratory in Humanities/Social Science,US
+YouVisit,,Trisha,Pullen,trishapullen3625 meado,trisha.pullen@yahoo.com,9/9/2002,3625 Meadow Bkuff,Louisville,KY,40245.0,,,,,Fall,Inquiry,High School Student,,US
+YouVisit,,Raeshawn,Shannon,raeshawnshannon,shannrat22@eagleapps.org,,,,,,,,,,Fall,Inquiry,Current Student,,
+YouVisit,,She Yung,Wong,she yungwong1724 chand,joyceazusa02@gmail.com,5/2/2002,1724 Chandler Ln,Lexington,KY,40504.0,8592309358.0,2020.0,,,Fall,Inquiry,High School Graduate,,US
+YouVisit,,Angela,Cuccio,angelacuccio104 mcclay,afc112502@gmail.com,11/25/2002,104 Mcclay Crossing Ct,Saint Peters,MO,63376.0,6368750984.0,2021.0,,,Fall,Inquiry,High School Student,Pre-Medicine,US
+YouVisit,,Jillian,Garvey,jilliangarvey213 locust,jillygarv@gmail.com,4/5/2003,213 Locust Street,Ambler,PA,19002.0,6108888583.0,2021.0,,,Fall,Inquiry,High School Student,Nursing,US
+YouVisit,,Kaylee,Hedlund,kayleehedlund121 radcli,khedlund03@gmail.com,1/28/2007,121 Radcliff Drive,Aliquippa,PA,15001.0,7243787695.0,2021.0,,,Fall,Inquiry,High School Student,,US
+YouVisit,,Gabi,Badia,gabibadia1828 princ,gabiibadia@gmail.com,7/22/2003,1828 Princeton Drive,Louisville,KY,40205.0,,,,,Fall,Inquiry,High School Student,,US
+YouVisit,,Kandis ,Ajyeman,kandis ajyeman107 noble ,kandis.ajyeman@gmail.com,5/28/2003,107 Noble Lane ,Berryville,VA,22611.0,5715088075.0,2021.0,470195.0,,Fall,Inquiry,High School Student,Neuroscience,US
+YouVisit,,Hannah,Santos,hannahsantos118 petz a,santos34@bellsouth.net,7/16/2004,118 Petz Ave,Fairhope,AL,36532.0,,2022.0,,,Fall,Inquiry,High School Student,Exploratory in Humanities/Social Science,US
+YouVisit,,,,,,,,,,,,,,,Fall,Inquiry,,,
+YouVisit,,,,,,,,,,,,,,,Fall,Inquiry,,,
+YouVisit,,,,,,,,,,,,,,,Fall,Inquiry,,,
+YouVisit,,,,,,,,,,,,,,,Fall,Inquiry,,,
