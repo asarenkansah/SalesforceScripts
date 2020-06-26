@@ -47,7 +47,6 @@ def data_clean(load_data):
     load_data.loc[load_data['Visitor Type'].str.contains('Transfer'), 'Visitor Type'] = 'Transfer'
     load_data.loc[load_data['Visitor Type'].str.contains('Transfer') == False, 'Visitor Type'] = 'Freshman'
 
-
     return load_data
 
 def imports():
