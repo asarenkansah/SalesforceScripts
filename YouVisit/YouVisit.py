@@ -15,8 +15,8 @@ def data_dedup(final_data, dedup_data):
     concat_data = pd.merge(final_data, dedup_concat, on = 'Concat ID', how = 'left')
     final_data = pd.merge(final_data, dedup_concat, on = 'Concat ID', how = 'left')
     email_data = pd.merge(final_data, dedup_email, on = 'Email', how = 'left')
-#    final_data = pd.merge(final_data, dedup_email, on = 'Email', how = 'left')
-
+    final_data = pd.merge(final_data, dedup_email, on = 'Email', how = 'left')
+    
     concat_data = concat_data[["Contact ID"]]
     email_data = concat_data[["Contact ID"]]
     final_contact_data = pd.concat([concat_data, email_data], axis=0)
@@ -31,7 +31,7 @@ def data_dedup(final_data, dedup_data):
 
 #Changes the order of the columns, not required/necessary but it makes it easier for me to read
 def data_reorder(final_data):
-    final_data = final_data.reindex(columns=['SOURCE__C', 'LOAD_DATE__C', 'FIRST_NAME__C', 'LAST_NAME__C', 'CONCATID__C', 'EMAIL__C', 'BIRTHDATE__C', 'ADDRESS_LINE_1__C', 'CITY__C', 'STATE__C', 'ZIP_CODE__C', 'MOBILE__C', 'HS_GRADUATION_YEAR__C', 'HS_CEEB_CODE__C', 'YEAR__C', 'TERM__C', 'STUDENT_STATUS__C', 'STUDENT_TYPE__C', 'MAJOR_OF_INTEREST__C', 'COUNTRY__C'])
+    final_data = final_data.reindex(columns=['SOURCE__C', 'LOAD_DATE__C', 'FIRST_NAME__C', 'LAST_NAME__C', 'CONCATID__C', 'EMAIL__C', 'BIRTHDATE__C', 'ADDRESS_LINE_1__C', 'CITY__C', 'STATE__C', 'ZIP_CODE__C', 'MOBILE__C', 'HS_GRADUATION_YEAR__C', 'HS_CEEB_CODE__C', 'YEAR__C', 'TERM__C', 'STUDENT_STATUS__C', 'STUDENT_TYPE__C', 'MAJOR_OF_INTEREST__C', 'COUNTRY__C', 'Contact ID_x', 'Contact ID_y'])
     return final_data
 
 #Renames all of the columns to their proper name that will be mapped in SF CRM
@@ -75,7 +75,7 @@ def data_clean(load_data):
     load_data["STUDENT_STATUS__C"] = ""
 
     #Establishes the time on the day that the script was run and places it into the correct column
-    today = dt.datetime.today().strftime("%d/%m/%Y")
+    today = dt.datetime.today().strftime("%m/%d/%Y")
     load_data['LOAD_DATE__C'] = load_data['LOAD_DATE__C'].map({'' : today})
 
     #This is to take out unnecessary rows that are in the Visitor Type column, we only want high school students or transfers
@@ -97,10 +97,10 @@ def data_clean(load_data):
 #importing the data from the original file into dataframes
 def imports():
     #Check to see if the original file exists
-    file = Path("200601_YouVisit_original.csv")
+    file = Path("200708_YouVisit_original.csv")
     if file.exists ():
         #If the original file exists, then read it into the dataframe
-        data = pd.read_csv("200601_YouVisit_original.csv", encoding = "ISO-8859-1")
+        data = pd.read_csv("200708_YouVisit_original.csv", encoding = "ISO-8859-1")
     else:
         #If it doesn't exist, warn the user
         print("YouVisit file not found")
