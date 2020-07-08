@@ -9,7 +9,7 @@ import datetime as dt
 
 #Changes the order of the columns, not required/necessary but it makes it easier for me to read
 def data_reorder(final_data):
-    final_data = final_data.reindex(columns=['PURCHASE_ID__C', 'SOURCE__C', 'LOAD_DATE__C', 'FIRST_NAME__C', 'LAST_NAME__C', 'CONCATID__C', 'EMAIL__C', 'BIRTHDATE__C', 'GENDER__C', 'ADDRESS_LINE_1__C', 'CITY__C', 'STATE__C', 'ZIP_CODE__C','COUNTRY__C', 'MOBILE__C', 'HS_GRADUATION_YEAR__C', 'HS_CEEB_CODE__C', 'YEAR__C', 'TERM__C', 'STUDENT_STATUS__C', 'STUDENT_TYPE__C', 'MAJOR_OF_INTEREST__C', 'SECONDARY_MAJOR_OF_INTEREST__C','Race/Ethnicity','AMERICAN_INDIAN_ALASKAN_NATIVE__C', 'ASIAN__C', 'BLACK_AFRICAN_AMERICAN__C', 'WHITE_CAUCASIAN__C', 'Hispanic/Latino'])
+    final_data = final_data.reindex(columns=['PURCHASE_ID__C', 'SOURCE__C', 'LOAD_DATE__C', 'FIRST_NAME__C', 'LAST_NAME__C', 'CONCATID__C', 'EMAIL__C', 'BIRTHDATE__C', 'GENDER__C', 'ADDRESS_LINE_1__C', 'CITY__C', 'STATE__C', 'ZIP_CODE__C','COUNTRY__C', 'MOBILE__C', 'HS_GRADUATION_YEAR__C', 'HS_CEEB_CODE__C', 'YEAR__C', 'TERM__C', 'STUDENT_STATUS__C', 'STUDENT_TYPE__C', 'MAJOR_OF_INTEREST__C', 'SECONDARY_MAJOR_OF_INTEREST__C','Race/Ethnicity','AMERICAN_INDIAN_ALASKAN_NATIVE__C', 'ASIAN__C', 'BLACK_AFRICAN_AMERICAN__C', 'WHITE_CAUCASIAN__C', 'Hispanic/Latino', 'Race/Ethnicity Unknown'])
     return final_data
 
 #Renames all of the columns to their proper name that will be mapped in SF CRM
@@ -136,11 +136,17 @@ def imports():
         #Warn the user that the major file doesn't exist
         print("Major Decoder file not found")
 
-    return data, major_data
+    dedup_file = Path("ConcatLoad.csv")
+    if dedup_file.exists():
+        dedup_data = pd.read_csv("ConcatLoad.csv")
+    else:
+        print("Dedup file is missing")
+
+    return data, major_data, dedup_data
 
 def main():
-    #importing the data from the original file into dataframes
-    RaiseMe_data, major_data = imports()
+    #importing the data from the original file and dedup file into dataframes
+    RaiseMe_data, major_data, dedup_data = imports()
 
     #Takes care of the majority of the work in terms of copy and pasting, capitalizing properly, filling in details automatically like date/type of prospect
     RaiseMe_data = data_clean(RaiseMe_data)

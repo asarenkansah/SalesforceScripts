@@ -57,7 +57,6 @@ def ethnicity_compare(load_data):
 
 #Major Translater: Converts the original majors into a a format that is easily read by SF CRM database
 def major_compare(load_data, major_data):
-
     #Makes sure that none of the capitilization impeeds the progress of matching for the majors since it's case sensitive
     major_data['Major / Program'] = major_data['Major / Program'].str.lower()
     load_data['Major 1'] = load_data['Major 1'].str.lower()

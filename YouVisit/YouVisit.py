@@ -8,6 +8,27 @@ from pathlib import *
 import numpy as np
 import datetime as dt
 
+def data_dedup(final_data, dedup_data):
+    dedup_concat =  dedup_data[['Concat ID'] + ['Contact ID']]
+    dedup_email = dedup_data[['Email'] + ['Contact ID']]
+
+    concat_data = pd.merge(final_data, dedup_concat, on = 'Concat ID', how = 'left')
+    final_data = pd.merge(final_data, dedup_concat, on = 'Concat ID', how = 'left')
+    email_data = pd.merge(final_data, dedup_email, on = 'Email', how = 'left')
+#    final_data = pd.merge(final_data, dedup_email, on = 'Email', how = 'left')
+
+    concat_data = concat_data[["Contact ID"]]
+    email_data = concat_data[["Contact ID"]]
+    final_contact_data = pd.concat([concat_data, email_data], axis=0)
+
+#    final_contact_data = final_contact_data.dropna()
+#    final_data['Visitor Type'] = final_data['Visitor Type'].fillna("")
+#    final_data.drop(final_data[final_data["Contact ID"] == ""].index, inplace=True)
+#    print(final_data.head())
+#    final_contact_data.to_csv("tracker_data.csv")
+
+    return final_data
+
 #Changes the order of the columns, not required/necessary but it makes it easier for me to read
 def data_reorder(final_data):
     final_data = final_data.reindex(columns=['SOURCE__C', 'LOAD_DATE__C', 'FIRST_NAME__C', 'LAST_NAME__C', 'CONCATID__C', 'EMAIL__C', 'BIRTHDATE__C', 'ADDRESS_LINE_1__C', 'CITY__C', 'STATE__C', 'ZIP_CODE__C', 'MOBILE__C', 'HS_GRADUATION_YEAR__C', 'HS_CEEB_CODE__C', 'YEAR__C', 'TERM__C', 'STUDENT_STATUS__C', 'STUDENT_TYPE__C', 'MAJOR_OF_INTEREST__C', 'COUNTRY__C'])
@@ -94,14 +115,24 @@ def imports():
         #Warn the user that the major file doesn't exist
         print("Major Decoder file not found")
 
-    return data, major_data
+    dedup_file = Path("ConcatLoad.csv")
+    if dedup_file.exists():
+        dedup_data = pd.read_csv("ConcatLoad.csv")
+    else:
+        print("Dedup file is missing")
+
+    return data, major_data, dedup_data
 
 def main():
     #importing the data from the original file into dataframes
-    YouVisit_data, major_data = imports()
+    YouVisit_data, major_data, dedup_data = imports()
 
     #Takes care of the majority of the work in terms of copy and pasting, capitalizing properly, filling in details automatically like date/type of prospect
     YouVisit_data = data_clean(YouVisit_data)
+
+    #Deduping this data
+    YouVisit_data = data_dedup(YouVisit_data, dedup_data)
+#    YouVisit_data.to_csv("dedup_test.csv")
 
     #Major Translater: Converts the original majors into a a format that is easily read by SF CRM database
     YouVisit_data = major_compare(YouVisit_data, major_data)
