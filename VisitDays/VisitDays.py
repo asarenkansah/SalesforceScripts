@@ -5,15 +5,42 @@ import pandas as pd
 from pathlib import *
 import datetime as dt
 
+def data_dedup(load_data, dedup_data, SAP_data):
+    dedup_concat =  dedup_data[['Concat ID'] + ['Contact ID']]
+    dedup_email = dedup_data[['Email'] + ['Contact ID']]
+
+    load_data = pd.merge(load_data, dedup_concat, on = 'Concat ID', how = 'left')
+    load_data = pd.merge(load_data, dedup_email, on = 'Email', how = 'left')
+    load_data.loc[load_data['Contact ID_x'].isnull(),'Contact ID_x'] = load_data['Contact ID_y']
+
+    load_data.drop_duplicates(subset = 'Visitor Id', keep=False,inplace=True)
+    load_data.drop_duplicates(subset = 'Email', keep=False,inplace=True)
+    load_data.drop_duplicates(subset = 'Concat ID', keep=False,inplace=True)
+
+    SAP_concat = SAP_data[['Concat ID'] + ['STUDENTSHORT']]
+    SAP_email1 = SAP_data[['SMTP_ADDR'] + ['STUDENTSHORT']]
+    SAP_email2 = SAP_data[['SMTP_ADDR1'] + ['STUDENTSHORT']]
+
+    SAP_email1 = SAP_email1.rename(columns={'SMTP_ADDR': 'Email', 'STUDENTSHORT': 'Student Number 1'})
+    SAP_email2 = SAP_data.rename(columns={'SMTP_ADDR1': 'Email', 'STUDENTSHORT': 'Student Number 2'})
+
+    load_data = pd.merge(load_data, SAP_concat, on = 'Concat ID', how = 'left')
+    load_data = pd.merge(load_data, SAP_email1, on = 'Email', how = 'left')
+    load_data = pd.merge(load_data, SAP_email2, on = 'Email', how = 'left')
+    load_data.loc[load_data['STUDENTSHORT'].isnull(),'STUDENTSHORT'] = load_data['Student Number 1']
+    load_data.loc[load_data['STUDENTSHORT'].isnull(),'STUDENTSHORT'] = load_data['Student Number 2']
+
+    return load_data
+
 #Changes the order of the columns, not required/necessary but it makes it easier for me to read
-def data_reorder(final_data):
-    final_data = final_data.reindex(columns=['Purchase ID', 'SOURCE__C', 'LOAD_DATE__C', 'FIRST_NAME__C', 'LAST_NAME__C', 'CONCATID__C', 'EMAIL__C', 'ADDRESS_LINE_1__C', 'ADDRESS_LINE_2__C', 'CITY__C', 'STATE__C', 'ZIP_CODE__C', 'MOBILE__C', 'HS_GRADUATION_YEAR__C', 'HS_CEEB_CODE__C', 'YEAR__C', 'TERM__C', 'STUDENT_STATUS__C', 'STUDENT_TYPE__C', 'Academic Interests', 'MAJOR_OF_INTEREST__C', 'SECONDARY_MAJOR_OF_INTEREST__C', 'COUNTRY__C'])
-    return final_data
+def data_reorder(load_data):
+    load_data = load_data.reindex(columns=['Purchase ID', 'SOURCE__C', 'LOAD_DATE__C', 'FIRST_NAME__C', 'LAST_NAME__C', 'CONCATID__C', 'EMAIL__C', 'ADDRESS_LINE_1__C', 'ADDRESS_LINE_2__C', 'CITY__C', 'STATE__C', 'ZIP_CODE__C', 'MOBILE__C', 'HS_GRADUATION_YEAR__C', 'HS_CEEB_CODE__C', 'YEAR__C', 'TERM__C', 'STUDENT_STATUS__C', 'STUDENT_TYPE__C', 'Academic Interests', 'MAJOR_OF_INTEREST__C', 'SECONDARY_MAJOR_OF_INTEREST__C', 'COUNTRY__C', 'Contact ID', 'STUDENTSHORT'])
+    return load_data
 
 #Renames all of the columns to their proper name that will be mapped in SF CRM
-def data_rename(final_data):
-    final_data = final_data.rename(columns={'Visitor Id' : 'Purchase ID', 'First Name' : 'FIRST_NAME__C', 'Last Name' : 'LAST_NAME__C', 'Email' : 'EMAIL__C', 'Concat ID' : 'CONCATID__C' , 'Street Address' : 'ADDRESS_LINE_1__C' , 'Street Address 2' : 'ADDRESS_LINE_2__C', 'City' : 'CITY__C', 'State' : 'STATE__C', 'Zipcode' : 'ZIP_CODE__C', 'Phone': 'MOBILE__C', 'Enrollment Year': 'HS_GRADUATION_YEAR__C', 'High School CEEB Code': 'HS_CEEB_CODE__C', 'Country' : 'COUNTRY__C', 'Title' : 'STUDENT_TYPE__C'})
-    return final_data
+def data_rename(load_data):
+    load_data = load_data.rename(columns={'Visitor Id' : 'Purchase ID', 'First Name' : 'FIRST_NAME__C', 'Last Name' : 'LAST_NAME__C', 'Email' : 'EMAIL__C', 'Concat ID' : 'CONCATID__C' , 'Street Address' : 'ADDRESS_LINE_1__C' , 'Street Address 2' : 'ADDRESS_LINE_2__C', 'City' : 'CITY__C', 'State' : 'STATE__C', 'Zipcode' : 'ZIP_CODE__C', 'Phone': 'MOBILE__C', 'Enrollment Year': 'HS_GRADUATION_YEAR__C', 'High School CEEB Code': 'HS_CEEB_CODE__C', 'Country' : 'COUNTRY__C', 'Title' : 'STUDENT_TYPE__C', 'Contact ID_x': 'Contact ID'})
+    return load_data
 
 #Major Translater: Converts the original majors into a a format that is easily read by SF CRM database
 def major_compare(load_data, major_data):
@@ -74,7 +101,7 @@ def data_clean(load_data):
     load_data.loc[load_data["LOAD_DATE__C"] == "","LOAD_DATE__C"] = ""
 
     #Establishes the time on the day that the script was run and places it into the correct column
-    today = dt.datetime.today().strftime("%d/%m/%Y")
+    today = dt.datetime.today().strftime("%m/%d/%Y")
     load_data['LOAD_DATE__C'] = load_data['LOAD_DATE__C'].map({'' : today})
 
     load_data['Title'] = load_data['Title'].fillna("")
@@ -88,7 +115,7 @@ def imports():
     file = Path("200611_VisitDays_original.csv")
     if file.exists ():
         #If the original file exists, then read it into the dataframe
-        data = pd.read_csv("200611_VisitDays_original.csv", encoding = "ISO-8859-1")
+        load_data = pd.read_csv("200611_VisitDays_original.csv", encoding = "ISO-8859-1")
     else:
         #If it doesn't exist, warn the user
         print("VisitDays file not found")
@@ -103,17 +130,30 @@ def imports():
         #Warn the user that the major file doesn't exist
         print("Major Decoder file not found")
 
-    return data, major_data
+    dedup_file = Path("ConcatLoad.csv")
+    if dedup_file.exists():
+        dedup_data = pd.read_csv("ConcatLoad.csv")
+    else:
+        print("Dedup file is missing")
+
+    SAP_file = Path("modified_SAP.csv")
+    if SAP_file.exists():
+        SAP_data = pd.read_csv("modified_SAP.csv")
+    else:
+        print("SAP File is missing boi")
+
+    return load_data, major_data, dedup_data, SAP_data
 
 def main():
-    #importing the data from the original file into dataframes
-    new_import = imports()
 
-    #Takes care of the majority of the work in terms of copy and pasting, capitalizing properly, filling in details automatically like date/type of prospect
-    VisitDays_data, major_data = new_import[0], new_import[1]
+    #importing the data from the original file into dataframes
+    VisitDays_data, major_data, dedup_data, SAP_data = imports()
 
     #Takes care of the majority of the work in terms of copy and pasting, capitalizing properly, filling in details automatically like date/type of prospect
     VisitDays_data = data_clean(VisitDays_data)
+
+    #Deduping this data
+    VisitDays_data = data_dedup(VisitDays_data, dedup_data, SAP_data)
 
     #Major Translater: Converts the original majors into a a format that is easily read by SF CRM database
     VisitDays_data = major_compare(VisitDays_data, major_data)

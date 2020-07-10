@@ -109,7 +109,7 @@ def main():
     final_data = pd.concat([final_data, marketing_data], axis=0)
     final_data = pd.concat([final_data, eab_data], axis=0)
 
-    final_data.to_csv('ConcatLoad.csv')
+    final_data.to_csv('ConcatLoad.csv', index=False)
 
     print("DONE!")
 

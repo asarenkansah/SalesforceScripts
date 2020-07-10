@@ -8,36 +8,41 @@ from pathlib import *
 import numpy as np
 import datetime as dt
 
-def data_dedup(final_data, dedup_data):
+def data_dedup(load_data, dedup_data, SAP_data):
     dedup_concat =  dedup_data[['Concat ID'] + ['Contact ID']]
     dedup_email = dedup_data[['Email'] + ['Contact ID']]
 
-    concat_data = pd.merge(final_data, dedup_concat, on = 'Concat ID', how = 'left')
-    final_data = pd.merge(final_data, dedup_concat, on = 'Concat ID', how = 'left')
-    email_data = pd.merge(final_data, dedup_email, on = 'Email', how = 'left')
-    final_data = pd.merge(final_data, dedup_email, on = 'Email', how = 'left')
-    
-    concat_data = concat_data[["Contact ID"]]
-    email_data = concat_data[["Contact ID"]]
-    final_contact_data = pd.concat([concat_data, email_data], axis=0)
+    load_data = pd.merge(load_data, dedup_concat, on = 'Concat ID', how = 'left')
+    load_data = pd.merge(load_data, dedup_email, on = 'Email', how = 'left')
+    load_data.loc[load_data['Contact ID_x'].isnull(),'Contact ID_x'] = load_data['Contact ID_y']
 
-#    final_contact_data = final_contact_data.dropna()
-#    final_data['Visitor Type'] = final_data['Visitor Type'].fillna("")
-#    final_data.drop(final_data[final_data["Contact ID"] == ""].index, inplace=True)
-#    print(final_data.head())
-#    final_contact_data.to_csv("tracker_data.csv")
+    load_data.drop_duplicates(subset = 'Email', keep=False,inplace=True)
+    load_data.drop_duplicates(subset = 'Concat ID', keep=False,inplace=True)
 
-    return final_data
+    SAP_concat = SAP_data[['Concat ID'] + ['STUDENTSHORT']]
+    SAP_email1 = SAP_data[['SMTP_ADDR'] + ['STUDENTSHORT']]
+    SAP_email2 = SAP_data[['SMTP_ADDR1'] + ['STUDENTSHORT']]
+
+    SAP_email1 = SAP_email1.rename(columns={'SMTP_ADDR': 'Email', 'STUDENTSHORT': 'Student Number 1'})
+    SAP_email2 = SAP_data.rename(columns={'SMTP_ADDR1': 'Email', 'STUDENTSHORT': 'Student Number 2'})
+
+    load_data = pd.merge(load_data, SAP_concat, on = 'Concat ID', how = 'left')
+    load_data = pd.merge(load_data, SAP_email1, on = 'Email', how = 'left')
+    load_data = pd.merge(load_data, SAP_email2, on = 'Email', how = 'left')
+    load_data.loc[load_data['STUDENTSHORT'].isnull(),'STUDENTSHORT'] = load_data['Student Number 1']
+    load_data.loc[load_data['STUDENTSHORT'].isnull(),'STUDENTSHORT'] = load_data['Student Number 2']
+
+    return load_data
 
 #Changes the order of the columns, not required/necessary but it makes it easier for me to read
-def data_reorder(final_data):
-    final_data = final_data.reindex(columns=['SOURCE__C', 'LOAD_DATE__C', 'FIRST_NAME__C', 'LAST_NAME__C', 'CONCATID__C', 'EMAIL__C', 'BIRTHDATE__C', 'ADDRESS_LINE_1__C', 'CITY__C', 'STATE__C', 'ZIP_CODE__C', 'MOBILE__C', 'HS_GRADUATION_YEAR__C', 'HS_CEEB_CODE__C', 'YEAR__C', 'TERM__C', 'STUDENT_STATUS__C', 'STUDENT_TYPE__C', 'MAJOR_OF_INTEREST__C', 'COUNTRY__C', 'Contact ID_x', 'Contact ID_y'])
-    return final_data
+def data_reorder(load_data):
+    load_data = load_data.reindex(columns=['SOURCE__C', 'LOAD_DATE__C', 'FIRST_NAME__C', 'LAST_NAME__C', 'CONCATID__C', 'EMAIL__C', 'BIRTHDATE__C', 'ADDRESS_LINE_1__C', 'CITY__C', 'STATE__C', 'ZIP_CODE__C', 'MOBILE__C', 'HS_GRADUATION_YEAR__C', 'HS_CEEB_CODE__C', 'YEAR__C', 'TERM__C', 'STUDENT_STATUS__C', 'STUDENT_TYPE__C', 'MAJOR_OF_INTEREST__C', 'COUNTRY__C', 'Contact ID', 'STUDENTSHORT'])
+    return load_data
 
 #Renames all of the columns to their proper name that will be mapped in SF CRM
-def data_rename(final_data):
-    final_data = final_data.rename(columns={'First Name' : 'FIRST_NAME__C', 'Last Name' : 'LAST_NAME__C' , 'Email' : 'EMAIL__C', 'Date of Birth': 'BIRTHDATE__C' , 'Concat ID' : 'CONCATID__C', 'Street' : 'ADDRESS_LINE_1__C', 'City':'CITY__C', 'State / Region':'STATE__C', 'Postal Code':'ZIP_CODE__C', 'Phone':'MOBILE__C', 'Enrollment Year':'HS_GRADUATION_YEAR__C', 'Ceeb Code':'HS_CEEB_CODE__C', 'UK Major':'MAJOR_OF_INTEREST__C', 'Country':'COUNTRY__C', 'Visitor Type':'STUDENT_TYPE__C'})
-    return final_data
+def data_rename(load_data):
+    load_data = load_data.rename(columns={'First Name' : 'FIRST_NAME__C', 'Last Name' : 'LAST_NAME__C' , 'Email' : 'EMAIL__C', 'Date of Birth': 'BIRTHDATE__C' , 'Concat ID' : 'CONCATID__C', 'Street' : 'ADDRESS_LINE_1__C', 'City':'CITY__C', 'State / Region':'STATE__C', 'Postal Code':'ZIP_CODE__C', 'Phone':'MOBILE__C', 'Enrollment Year':'HS_GRADUATION_YEAR__C', 'Ceeb Code':'HS_CEEB_CODE__C', 'UK Major':'MAJOR_OF_INTEREST__C', 'Country':'COUNTRY__C', 'Visitor Type':'STUDENT_TYPE__C', 'Contact ID_x': 'Contact ID'})
+    return load_data
 
 #Major Translater: Converts the original majors into a a format that is easily read by SF CRM database
 def major_compare(load_data, major_data):
@@ -92,6 +97,9 @@ def data_clean(load_data):
     load_data.loc[load_data['Visitor Type'].str.contains('Transfer'), 'Visitor Type'] = 'Transfer'
     load_data.loc[load_data['Visitor Type'].str.contains('Transfer') == False, 'Visitor Type'] = 'Freshman'
 
+    load_data.drop_duplicates(subset = 'Email', keep=False,inplace=True)
+    load_data.drop_duplicates(subset = 'Concat ID', keep=False,inplace=True)
+
     return load_data
 
 #importing the data from the original file into dataframes
@@ -100,7 +108,7 @@ def imports():
     file = Path("200708_YouVisit_original.csv")
     if file.exists ():
         #If the original file exists, then read it into the dataframe
-        data = pd.read_csv("200708_YouVisit_original.csv", encoding = "ISO-8859-1")
+        load_data = pd.read_csv("200708_YouVisit_original.csv", encoding = "ISO-8859-1")
     else:
         #If it doesn't exist, warn the user
         print("YouVisit file not found")
@@ -121,17 +129,23 @@ def imports():
     else:
         print("Dedup file is missing")
 
-    return data, major_data, dedup_data
+    SAP_file = Path("modified_SAP.csv")
+    if SAP_file.exists():
+        SAP_data = pd.read_csv("modified_SAP.csv")
+    else:
+        print("SAP File is missing boi")
+
+    return load_data, major_data, dedup_data, SAP_data
 
 def main():
     #importing the data from the original file into dataframes
-    YouVisit_data, major_data, dedup_data = imports()
+    YouVisit_data, major_data, dedup_data, SAP_data = imports()
 
     #Takes care of the majority of the work in terms of copy and pasting, capitalizing properly, filling in details automatically like date/type of prospect
     YouVisit_data = data_clean(YouVisit_data)
 
     #Deduping this data
-    YouVisit_data = data_dedup(YouVisit_data, dedup_data)
+    YouVisit_data = data_dedup(YouVisit_data, dedup_data, SAP_data)
 #    YouVisit_data.to_csv("dedup_test.csv")
 
     #Major Translater: Converts the original majors into a a format that is easily read by SF CRM database
