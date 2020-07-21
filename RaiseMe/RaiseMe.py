@@ -10,14 +10,12 @@ import datetime as dt
 def data_dedup(load_data, dedup_data, SAP_data):
     dedup_concat =  dedup_data[['Concat ID'] + ['Contact ID']]
     dedup_email = dedup_data[['Email'] + ['Contact ID']]
+    dedup_concat = dedup_concat.dropna()
+    dedup_email = dedup_email.dropna()
 
     load_data = pd.merge(load_data, dedup_concat, on = 'Concat ID', how = 'left')
     load_data = pd.merge(load_data, dedup_email, on = 'Email', how = 'left')
     load_data.loc[load_data['Contact ID_x'].isnull(),'Contact ID_x'] = load_data['Contact ID_y']
-
-    load_data.drop_duplicates(subset = 'Raise.me Code', keep=False,inplace=True)
-    load_data.drop_duplicates(subset = 'Email', keep=False,inplace=True)
-    load_data.drop_duplicates(subset = 'Concat ID', keep=False,inplace=True)
 
     SAP_concat = SAP_data[['Concat ID'] + ['STUDENTSHORT']]
     SAP_email1 = SAP_data[['SMTP_ADDR'] + ['STUDENTSHORT']]
@@ -25,23 +23,29 @@ def data_dedup(load_data, dedup_data, SAP_data):
 
     SAP_email1 = SAP_email1.rename(columns={'SMTP_ADDR': 'Email', 'STUDENTSHORT': 'Student Number 1'})
     SAP_email2 = SAP_data.rename(columns={'SMTP_ADDR1': 'Email', 'STUDENTSHORT': 'Student Number 2'})
+    SAP_email1 = SAP_email1.dropna()
+    SAP_email2 = SAP_email2.dropna()
 
     load_data = pd.merge(load_data, SAP_concat, on = 'Concat ID', how = 'left')
     load_data = pd.merge(load_data, SAP_email1, on = 'Email', how = 'left')
     load_data = pd.merge(load_data, SAP_email2, on = 'Email', how = 'left')
     load_data.loc[load_data['STUDENTSHORT'].isnull(),'STUDENTSHORT'] = load_data['Student Number 1']
     load_data.loc[load_data['STUDENTSHORT'].isnull(),'STUDENTSHORT'] = load_data['Student Number 2']
-
+        
     return load_data
 
 #Changes the order of the columns, not required/necessary but it makes it easier for me to read
 def data_reorder(load_data):
     load_data = load_data.reindex(columns=['PURCHASE_ID__C', 'SOURCE__C', 'LOAD_DATE__C', 'FIRST_NAME__C', 'LAST_NAME__C', 'CONCATID__C', 'EMAIL__C', 'BIRTHDATE__C', 'GENDER__C', 'ADDRESS_LINE_1__C', 'CITY__C', 'STATE__C', 'ZIP_CODE__C','COUNTRY__C', 'MOBILE__C', 'HS_GRADUATION_YEAR__C', 'HS_CEEB_CODE__C', 'YEAR__C', 'TERM__C', 'STUDENT_STATUS__C', 'STUDENT_TYPE__C', 'MAJOR_OF_INTEREST__C', 'SECONDARY_MAJOR_OF_INTEREST__C','Race/Ethnicity','AMERICAN_INDIAN_ALASKAN_NATIVE__C', 'ASIAN__C', 'BLACK_AFRICAN_AMERICAN__C', 'WHITE_CAUCASIAN__C', 'Hispanic/Latino', 'Race/Ethnicity Unknown', 'Contact ID', 'STUDENTSHORT'])
+    
+    load_data.drop_duplicates(subset = 'PURCHASE_ID__C', inplace=True)
+    load_data.drop_duplicates(subset = 'EMAIL__C', inplace=True)
+    
     return load_data
 
 #Renames all of the columns to their proper name that will be mapped in SF CRM
 def data_rename(load_data):
-    load_data = load_data.rename(columns={'Gender':'GENDER__C', 'DOB':'BIRTHDATE__C', 'Raise.me Code' : 'PURCHASE_ID__C', 'First Name' : 'FIRST_NAME__C', 'Last Name' : 'LAST_NAME__C', 'Email' : 'EMAIL__C', 'Concat ID' : 'CONCATID__C' , 'Street Address' : 'ADDRESS_LINE_1__C' , 'City' : 'CITY__C', 'Subdivision' : 'STATE__C', 'Postal Code' : 'ZIP_CODE__C', 'Mobile': 'MOBILE__C', 'Projected Graduation Year': 'HS_GRADUATION_YEAR__C', 'CEEB Code': 'HS_CEEB_CODE__C', 'Country' : 'COUNTRY__C', 'Contact ID_x': 'Contact ID'})
+    load_data = load_data.rename(columns={'Gender':'GENDER__C', 'DOB':'BIRTHDATE__C', 'Raise.me Code' : 'PURCHASE_ID__C', 'First Name' : 'FIRST_NAME__C', 'Last Name' : 'LAST_NAME__C', 'Email' : 'EMAIL__C' , 'Street Address' : 'ADDRESS_LINE_1__C' , 'City' : 'CITY__C', 'Subdivision' : 'STATE__C', 'Postal Code' : 'ZIP_CODE__C', 'Mobile': 'MOBILE__C', 'Projected Graduation Year': 'HS_GRADUATION_YEAR__C', 'CEEB Code': 'HS_CEEB_CODE__C', 'Country' : 'COUNTRY__C', 'Contact ID_x': 'Contact ID', 'Concat ID_x' : 'CONCATID__C'})
     return load_data
 
 #Figures out which races are listed out in the original datafile and assigns them a True or False value for SF CRM to house
@@ -111,6 +115,7 @@ def data_clean(load_data):
     load_data['Concat ID'] = load_data['First Name'] + load_data['Last Name'] + load_data['Street Address'].str[:10]
     load_data.loc[load_data["Concat ID"].isnull(),'Concat ID'] = load_data["First Name"] + load_data["Last Name"]
     load_data['Concat ID'] = load_data['Concat ID'].str.lower()
+    load_data['Email'] = load_data['Email'].str.lower()
     load_data['First Name'] = load_data['First Name'].str.title()
     load_data['Last Name'] = load_data['Last Name'].str.title()
     load_data['Street Address'] = load_data['Street Address'].str.title()
@@ -140,15 +145,15 @@ def data_clean(load_data):
     load_data.loc[load_data["STUDENT_STATUS__C"] == "","STUDENT_STATUS__C"] = "Inquiry"
     load_data.loc[load_data["TERM__C"] == "","TERM__C"] = "Fall"
     load_data.loc[load_data["STUDENT_TYPE__C"] == "","STUDENT_TYPE__C"] = "Freshman"
-
+    
     return load_data
 
 def imports():
     #Check to see if the original file exists
-    file = Path("200616_RaiseMe_original.csv")
+    file = Path("200720_RaiseMe_original.csv")
     if file.exists ():
         #If the original file exists, then read it into the dataframe
-        load_data = pd.read_csv("200616_RaiseMe_original.csv")
+        load_data = pd.read_csv("200720_RaiseMe_original.csv")
     else:
         #If it doesn't exist, warn the user
         print("RaiseMe file not found")
@@ -187,15 +192,19 @@ def main():
 
     #dedup the data
     RaiseMe_data = data_dedup(RaiseMe_data, dedup_data, SAP_data)
+    RaiseMe_data.to_csv("count_dedup.csv")
 
     #Major Translater: Converts the original majors into a a format that is easily read by SF CRM database
     RaiseMe_data = major_compare(RaiseMe_data, major_data)
+    RaiseMe_data.to_csv("count_major.csv")
 
     #Figures out which races are listed out in the original datafile and assigns them a True or False value for SF CRM to house
     RaiseMe_data = ethnicity_compare(RaiseMe_data)
+    RaiseMe_data.to_csv("count_compare.csv")
 
     #Renames all of the columns to their proper name that will be mapped in SF CRM
     RaiseMe_data = data_rename(RaiseMe_data)
+    RaiseMe_data.to_csv("count_rename.csv")
 
     #Changes the order of the columns, not required/necessary but it makes it easier for me to read
     RaiseMe_data = data_reorder(RaiseMe_data)

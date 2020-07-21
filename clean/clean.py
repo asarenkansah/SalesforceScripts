@@ -11,6 +11,8 @@ def SAP():
         data.loc[data["Concat ID"].isnull(),'Concat ID'] = data["VORNA"] + data["NACHN"]
 
         data['Concat ID'] = data['Concat ID'].str.lower()
+        data['SMTP_ADDR1'] = data['SMTP_ADDR1'].str.lower()
+        data['SMTP_ADDR'] = data['SMTP_ADDR'].str.lower()
 
         SAP_data = data[['Concat ID'] + ['STUDENTSHORT'] + ['SMTP_ADDR'] + ['STUDENTSHORT'] + ['SMTP_ADDR1'] + ['STUDENTSHORT']]
 
@@ -31,9 +33,10 @@ def eab():
         data.loc[data["Concat ID"].isnull(),'Concat ID'] = data["First Name"] + data["Last Name"]
 
         data['Concat ID'] = data['Concat ID'].str.lower()
+        data['Email'] = data['Email'].str.lower()
 
         eab_data = data[['Concat ID'] + ['Contact ID'] + ['Email'] + ['Contact ID']]
-#        eab_data.to_csv('modified_eab.csv', index=False)
+        eab_data.to_csv('modified_eab.csv', index=False)
 
     else:
         print ("EAB Marketing Pop File not exist")
@@ -50,9 +53,10 @@ def marketing():
         data.loc[data["Concat ID"].isnull(),'Concat ID'] = data["First Name"] + data["Last Name"]
 
         data['Concat ID'] = data['Concat ID'].str.lower()
+        data['Email'] = data['Email'].str.lower()
 
         marketing_data = data[['Concat ID'] + ['Contact ID'] + ['Email'] + ['Contact ID']]
-#        marketing_data.to_csv('modified_marketing.csv', index=False)
+        marketing_data.to_csv('modified_marketing.csv', index=False)
 
     else:
         print ("Marketing Pop File not exist")
@@ -69,9 +73,10 @@ def prospect():
 
         data['Concat ID'] = data['Concat ID'].str.lower()
         data = data.rename(columns={'Contact: Contact ID': 'Contact ID', 'Contact: Email': 'Email'})
+        data['Email'] = data['Email'].str.lower()
 
         prospect_data = data[['Concat ID'] + ['Contact ID'] + ['Email'] + ['Contact ID']]
-#        prospect_data.to_csv('modified_prospect.csv', index=False)
+        prospect_data.to_csv('modified_prospect.csv', index=False)
 
     else:
         print ("Prospect Pop File not exist")
@@ -88,9 +93,10 @@ def transfer():
 
 
         data['Concat ID'] = data['Concat ID'].str.lower()
+        data['Email'] = data['Email'].str.lower()
 
         transfer_data = data[['Concat ID'] + ['Contact ID'] + ['Email'] + ['Contact ID']]
-#        transfer_data.to_csv('modified_transfer.csv', index=False)
+        transfer_data.to_csv('modified_transfer.csv', index=False)
 
     else:
         print ("Transfer Pop File not exist")

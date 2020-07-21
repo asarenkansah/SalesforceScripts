@@ -10,14 +10,13 @@ import datetime as dt
 def data_dedup(load_data, dedup_data, SAP_data):
     dedup_concat =  dedup_data[['Concat ID'] + ['Contact ID']]
     dedup_email = dedup_data[['Email'] + ['Contact ID']]
+    dedup_concat = dedup_concat.dropna()
+    dedup_email = dedup_email.dropna()
 
     dedup_email = dedup_email.rename(columns={'Email' :'Email Address'})
     load_data = pd.merge(load_data, dedup_concat, on = 'Concat ID', how = 'left')
     load_data = pd.merge(load_data, dedup_email, on = 'Email Address', how = 'left')
     load_data.loc[load_data['Contact ID_x'].isnull(),'Contact ID_x'] = load_data['Contact ID_y']
-
-    load_data.drop_duplicates(subset = 'Email Address', keep=False,inplace=True)
-    load_data.drop_duplicates(subset = 'Concat ID', keep=False,inplace=True)
 
     SAP_concat = SAP_data[['Concat ID'] + ['STUDENTSHORT']]
     SAP_email1 = SAP_data[['SMTP_ADDR'] + ['STUDENTSHORT']]
@@ -25,6 +24,8 @@ def data_dedup(load_data, dedup_data, SAP_data):
 
     SAP_email1 = SAP_email1.rename(columns={'SMTP_ADDR': 'Email Address', 'STUDENTSHORT': 'Student Number 1'})
     SAP_email2 = SAP_data.rename(columns={'SMTP_ADDR1': 'Email Address', 'STUDENTSHORT': 'Student Number 2'})
+    SAP_email1 = SAP_email1.dropna()
+    SAP_email2 = SAP_email2.dropna()
 
     load_data = pd.merge(load_data, SAP_concat, on = 'Concat ID', how = 'left')
     load_data = pd.merge(load_data, SAP_email1, on = 'Email Address', how = 'left')
@@ -37,11 +38,15 @@ def data_dedup(load_data, dedup_data, SAP_data):
 #Changes the order of the columns, not required/necessary but it makes it easier for me to read
 def data_reorder(load_data):
     load_data = load_data.reindex(columns=['SOURCE__C', 'LOAD_DATE__C', 'FIRST_NAME__C', 'LAST_NAME__C', 'CONCATID__C', 'EMAIL__C', 'BIRTHDATE__C', 'GENDER__C', 'ADDRESS_LINE_1__C', 'ADDRESS_LINE_2__C', 'CITY__C', 'STATE__C', 'ZIP_CODE__C', 'COUNTRY__C', 'MOBILE__C', 'HS_GRADUATION_YEAR__C', 'HS_CEEB_CODE__C', 'YEAR__C', 'TERM__C', 'STUDENT_STATUS__C', 'STUDENT_TYPE__C', 'ACT/SAT Max Cumulative', 'MAJOR_OF_INTEREST__C', 'SECONDARY_MAJOR_OF_INTEREST__C', 'AMERICAN_INDIAN_ALASKAN_NATIVE__C', 'ASIAN__C', 'BLACK_AFRICAN_AMERICAN__C', 'WHITE_CAUCASIAN__C', 'Hispanic/Latino', 'Race/Ethnicity Unknown', 'Contact ID', 'STUDENTSHORT'])
+    
+    load_data.drop_duplicates(subset = 'EMAIL__C',inplace=True)
+    load_data.drop_duplicates(subset = 'CONCATID__C', inplace=True)
+    
     return load_data
 
 #Renames all of the columns to their proper name that will be mapped in SF CRM
 def data_rename(load_data):
-    load_data = load_data.rename(columns={'Inquiry Product' : 'SOURCE__C', 'First Name': 'FIRST_NAME__C', 'Last Name':'LAST_NAME__C', 'Concat ID':'CONCATID__C', 'Email Address':'EMAIL__C', 'Birth Date':'BIRTHDATE__C', 'Gender':'GENDER__C', 'Address1':'ADDRESS_LINE_1__C', 'Address2':'ADDRESS_LINE_2__C', 'City':'CITY__C', 'State':'STATE__C', 'Zip Code':'ZIP_CODE__C', 'Country':'COUNTRY__C', 'Primary Phone':'MOBILE__C', 'Expected HS Graduation Date':'HS_GRADUATION_YEAR__C', 'ACT Composite':'ACT/SAT Max Cumulative', 'CEEB Code': 'HS_CEEB_CODE__C', 'Contact ID_x': 'Contact ID'})
+    load_data = load_data.rename(columns={'Inquiry Product' : 'SOURCE__C', 'First Name': 'FIRST_NAME__C', 'Last Name':'LAST_NAME__C', 'Concat ID':'CONCATID__C', 'Email Address':'EMAIL__C', 'Birth Date':'BIRTHDATE__C', 'Gender':'GENDER__C', 'Address1':'ADDRESS_LINE_1__C', 'Address2':'ADDRESS_LINE_2__C', 'City':'CITY__C', 'State':'STATE__C', 'Zip Code':'ZIP_CODE__C', 'Country':'COUNTRY__C', 'Primary Phone':'MOBILE__C', 'Expected HS Graduation Date':'HS_GRADUATION_YEAR__C', 'ACT Composite':'ACT/SAT Max Cumulative', 'CEEB Code': 'HS_CEEB_CODE__C', 'Contact ID_x': 'Contact ID', 'Concat ID_x' : 'CONCATID__C'})
     return load_data
 
 #Figures out which races are listed out in the original datafile and assigns them a True or False value for SF CRM to house
@@ -112,6 +117,7 @@ def data_clean(load_data):
     #Edits various columns
     load_data['Concat ID'] = load_data['First Name'] + load_data['Last Name'] + load_data['Address1'].str[:10]
     load_data['Concat ID'] = load_data['Concat ID'].str.lower()
+    load_data['Email Address'] = load_data['Email Address'].str.lower()
     load_data['First Name'] = load_data['First Name'].str.title()
     load_data['Last Name'] = load_data['Last Name'].str.title()
     load_data['Address1'] = load_data['Address1'].str.title()
@@ -135,6 +141,7 @@ def data_clean(load_data):
 
     #Replacing some values specifically so that they will be ready correctly by SF CRM
     load_data['Inquiry Product'].replace({'Greenlight':'Cappex Greenlight'}, inplace=True)
+    load_data['Inquiry Product'] = load_data['Inquiry Product'].fillna("Cappex")
     load_data['Country'].replace({'United States': 'US', 'USA':'US'}, inplace=True)
     load_data['Gender'].replace({'M' : 'Male', 'F': 'Female'}, inplace=True)
 
@@ -142,15 +149,16 @@ def data_clean(load_data):
     load_data.loc[load_data["STUDENT_STATUS__C"]== "","STUDENT_STATUS__C"] = "Inquiry"
     load_data.loc[load_data["TERM__C"]== "","TERM__C"] = "Fall"
     load_data.loc[load_data["STUDENT_TYPE__C"]== "","STUDENT_TYPE__C"] = "Freshman"
+    load_data.loc[load_data["YEAR__C"] == "","YEAR__C"] = load_data['Expected HS Graduation Date'] + 1
 
     return load_data
 
 def imports():
     #Check to see if the original file exists
-    file = Path("200619_Cappex_original.csv")
+    file = Path("200720_Cappex_original.csv")
     if file.exists ():
         #If the original file exists, then read it into the dataframe
-        load_data = pd.read_csv("200619_Cappex_original.csv", encoding = "ISO-8859-1")
+        load_data = pd.read_csv("200720_Cappex_original.csv", encoding = "ISO-8859-1")
     else:
         #If it doesn't exist, warn the user
         print("Cappex file not found")
@@ -185,6 +193,7 @@ def main():
 
     #Takes care of the majority of the work in terms of copy and pasting, capitalizing properly, filling in details automatically like date/type of prospect
     cappex_data = data_clean(cappex_data)
+    cappex_data.to_csv("check_clean.csv")
 
     #Deduping this data
     cappex_data = data_dedup(cappex_data, dedup_data, SAP_data)
